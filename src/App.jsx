@@ -12,28 +12,28 @@ const App = () => {
   const [p2score, setp2score] = useState(0)
 
   let init_matches = [
-    {date: 'February 22, 2024 15:30:00', p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
-    {date: 'February 22, 2024 15:35:00', p1:'nh', p2:'pc', s1:16, s2:14, elo1:0, elo2:0},
-    {date: 'February 22, 2024 15:40:00', p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
-    {date: 'February 22, 2024 15:50:00', p1:'nh', p2:'pc', s1:11, s2:8, elo1:0, elo2:0},
-    {date: 'February 22, 2024 16:30:00', p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: 'February 22, 2024 16:35:00', p1:'nh', p2:'pc', s1:11, s2:4, elo1:0, elo2:0},
-    {date: 'February 22, 2024 16:40:00', p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
-    {date: 'February 22, 2024 16:50:00', p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: 'February 22, 2024 16:55:00', p1:'rh', p2:'pc', s1:7, s2:11, elo1:0, elo2:0},
-    {date: 'February 22, 2024 17:05:00', p1:'rh', p2:'nh', s1:9, s2:11, elo1:0, elo2:0},
-    {date: 'February 22, 2024 17:15:00', p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
-    {date: 'February 22, 2024 17:25:00', p1:'nh', p2:'jg', s1:11, s2:7, elo1:0, elo2:0},
-    {date: 'February 22, 2024 17:38:00', p1:'jg', p2:'pc', s1:11, s2:7, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:30:00', p1:'jg', p2:'rh', s1:11, s2:9, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:35:00', p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:40:00', p1:'nh', p2:'jg', s1:11, s2:4, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:48:00', p1:'pc', p2:'jg', s1:11, s2:8, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:53:00', p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: 'February 23, 2024 15:59:00', p1:'nh', p2:'pc', s1:9, s2:11, elo1:0, elo2:0},
-    {date: 'February 23, 2024 16:10:00', p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
-    {date: 'February 23, 2024 16:22:00', p1:'nh', p2:'zz', s1:11, s2:7, elo1:0, elo2:0},
-    {date: 'February 23, 2024 16:30:00', p1:'pc', p2:'zz', s1:11, s2:9, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 15:30:00'), p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 15:35:00'), p1:'nh', p2:'pc', s1:16, s2:14, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 15:40:00'), p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 15:50:00'), p1:'nh', p2:'pc', s1:11, s2:8, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 16:30:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 16:35:00'), p1:'nh', p2:'pc', s1:11, s2:4, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 16:40:00'), p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 16:50:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 16:55:00'), p1:'rh', p2:'pc', s1:7, s2:11, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 17:05:00'), p1:'rh', p2:'nh', s1:9, s2:11, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 17:15:00'), p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 17:25:00'), p1:'nh', p2:'jg', s1:11, s2:7, elo1:0, elo2:0},
+    {date: Date('February 22, 2024 17:38:00'), p1:'jg', p2:'pc', s1:11, s2:7, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:30:00'), p1:'jg', p2:'rh', s1:11, s2:9, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:35:00'), p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:40:00'), p1:'nh', p2:'jg', s1:11, s2:4, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:48:00'), p1:'pc', p2:'jg', s1:11, s2:8, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:53:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 15:59:00'), p1:'nh', p2:'pc', s1:9, s2:11, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 16:10:00'), p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 16:22:00'), p1:'nh', p2:'zz', s1:11, s2:7, elo1:0, elo2:0},
+    {date: Date('February 23, 2024 16:30:00'), p1:'pc', p2:'zz', s1:11, s2:9, elo1:0, elo2:0},
   ]
 
   let init_players = [
@@ -129,7 +129,8 @@ const App = () => {
     console.log(players)
   }
 
-  const addMatch = () => {
+  const addMatch = (event) => {
+    event.preventDefault()
     let p1obj = players.find((player) => player.n == p1)
     if (typeof p1obj === undefined) {
       console.log('p1 not found')
@@ -146,30 +147,29 @@ const App = () => {
     let updated_elo = calc_elo(p1obj.elo, p2obj.elo, p1score, p2score)
 
     console.log(updated_elo)
-    
+    console.log(matches)
+
     let new_match = {
       date: matchDate,
       p1: p1,
       p2: p2,
-      s1: p1score,
-      s2: p2score,
+      s1: parseInt(p1score),
+      s2: parseInt(p2score),
       elo1: updated_elo.p1_updated_elo,
       elo2: updated_elo.p2_updated_elo,
     }
 
-    console.log(new_match)
+    console.log(matches.concat(new_match))
 
-    let new_matches = [...matches]
-    new_matches.push(new_match)
-
-    setMatches([...new_matches])
+    setMatches(matches.concat(new_match))
+    console.log(matches)
   }
 
   return (
     <>
       <h1>Matches</h1>
       <MatchForm p1={p1} updatep1={updatep1} p2={p2} updatep2={updatep2} p1score={p1score} updatep1score={updatep1score} p2score={p2score} updatep2score={updatep2score} addMatch={addMatch}/>
-      
+
       <table>
         <thead>
         <tr>
@@ -181,6 +181,8 @@ const App = () => {
           <th>ELO1</th>
           <th>ELO2</th>
         </tr>
+        {console.log(Array.isArray(matches))}
+        {console.log(matches)}        
         {matches.map(match =>
           <Match date={match.date} p1={match.p1} p2={match.p2} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
         )}
