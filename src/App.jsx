@@ -2,55 +2,49 @@ import { useState, useEffect } from 'react'
 import Match from './components/Match'
 import Player from './components/Player'
 import MatchForm from './components/MatchForm'
+import PlayerForm from './components/PlayerForm'
+import axios from 'axios'
+
 
 const App = () => {
   const [matches, setMatches] = useState([])
   const [players, setPlayers] = useState([])
+  const [eloArray, setEloArray] = useState([])
   const [p1, setp1] = useState('')
   const [p2, setp2] = useState('')
   const [p1score, setp1score] = useState(0)
   const [p2score, setp2score] = useState(0)
+  const [name, setName] = useState('')
 
-  let init_matches = [
-    {date: Date('February 22, 2024 15:30:00'), p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 15:35:00'), p1:'nh', p2:'pc', s1:16, s2:14, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 15:40:00'), p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 15:50:00'), p1:'nh', p2:'pc', s1:11, s2:8, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 16:30:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 16:35:00'), p1:'nh', p2:'pc', s1:11, s2:4, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 16:40:00'), p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 16:50:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 16:55:00'), p1:'rh', p2:'pc', s1:7, s2:11, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 17:05:00'), p1:'rh', p2:'nh', s1:9, s2:11, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 17:15:00'), p1:'nh', p2:'pc', s1:10, s2:12, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 17:25:00'), p1:'nh', p2:'jg', s1:11, s2:7, elo1:0, elo2:0},
-    {date: Date('February 22, 2024 17:38:00'), p1:'jg', p2:'pc', s1:11, s2:7, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:30:00'), p1:'jg', p2:'rh', s1:11, s2:9, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:35:00'), p1:'nh', p2:'pc', s1:11, s2:6, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:40:00'), p1:'nh', p2:'jg', s1:11, s2:4, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:48:00'), p1:'pc', p2:'jg', s1:11, s2:8, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:53:00'), p1:'nh', p2:'pc', s1:8, s2:11, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 15:59:00'), p1:'nh', p2:'pc', s1:9, s2:11, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 16:10:00'), p1:'nh', p2:'pc', s1:11, s2:9, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 16:22:00'), p1:'nh', p2:'zz', s1:11, s2:7, elo1:0, elo2:0},
-    {date: Date('February 23, 2024 16:30:00'), p1:'pc', p2:'zz', s1:11, s2:9, elo1:0, elo2:0},
-  ]
+  const matchHook = () => {
+    axios
+      .get('http://localhost:3001/api/match')
+      .then(response => {
+        setMatches(response.data)
+      })
+  }
 
-  let init_players = [
-    {n:'nh', elo:1200},
-    {n:'pc', elo:1200},
-    {n:'rh', elo:1200},
-    {n:'jg', elo:1200},
-    {n:'zz', elo:1200},
-  ]
+  useEffect(matchHook, [])
 
-  useEffect(() => {
-    setMatches(init_matches)
-  }, [])
+  const playerHook = () => {
+    axios
+      .get('http://localhost:3001/api/player')
+      .then(response => {
+        setPlayers(response.data)
+      })
+  }
 
-  useEffect(() => {
-    setPlayers(init_players)
-  }, [])
+  useEffect(playerHook, [])
+
+  const eloHook = () => {
+    axios
+      .get('http://localhost:3001/api/elo')
+      .then(response => {
+        setEloArray(response.data)
+      })
+  }
+
+  useEffect(eloHook, [])
 
   const updatep1 = (event) => {
     setp1(event.target.value)
@@ -66,6 +60,10 @@ const App = () => {
 
   const updatep2score = (event) => {
     setp2score(event.target.value)
+  }
+
+  const updateName = (event) => {
+    setName(event.target.value)
   }
 
   const probability_of_win = (r1, r2) => {
@@ -131,15 +129,19 @@ const App = () => {
 
   const addMatch = (event) => {
     event.preventDefault()
-    let p1obj = players.find((player) => player.n == p1)
+
+    let p1obj = players.find((player) => player.name == p1)
+
     if (typeof p1obj === undefined) {
       console.log('p1 not found')
+      return
     }
 
-    let p2obj = players.find((player) => player.n == p2)
+    let p2obj = players.find((player) => player.name == p2)
 
     if (typeof p2obj === undefined) {
       console.log('p2 not found')
+      return
     }
     
     let matchDate = Date()
@@ -149,20 +151,102 @@ const App = () => {
     console.log(updated_elo)
     console.log(matches)
 
-    let new_match = {
+    let newMatchObj = {
       date: matchDate,
-      p1: p1,
-      p2: p2,
+      p1: p1obj.id,
+      p2: p2obj.id,
       s1: parseInt(p1score),
       s2: parseInt(p2score),
       elo1: updated_elo.p1_updated_elo,
       elo2: updated_elo.p2_updated_elo,
     }
 
-    console.log(matches.concat(new_match))
+    axios
+      .post('http://localhost:3001/api/match', newMatchObj)
+      .then(response => {
+        setMatches(matches.concat(response.data))
+        setp1('')
+        setp2('')
+        setp1score('')
+        setp2score('')
 
-    setMatches(matches.concat(new_match))
+        const elo1Object = {
+          player: p1obj.id,
+          match: response.data.id,
+          elo: updated_elo.p1_updated_elo
+        }
+
+        const elo2Object = {
+          player: p2obj.id,
+          match: response.data.id,
+          elo: updated_elo.p2_updated_elo
+        }
+
+        axios
+          .post('http://localhost:3001/api/elo', elo1Object)
+          .then(response => {
+            setEloArray(eloArray.concat(response.data))
+          })
+        
+        axios
+          .post('http://localhost:3001/api/elo', elo2Object)
+          .then(response => {
+            setEloArray(eloArray.concat(response.data))
+          })
+
+        const p1UpdateObject = {
+          player: p1obj.id,
+          elo: updated_elo.p1_updated_elo
+        }
+
+        const p2UpdateObject = {
+          player: p2obj.id,
+          elo: updated_elo.p2_updated_elo
+        }
+
+        axios
+          .put(`http://localhost:3001/api/player/${p1obj.id}`, p1UpdateObject)
+          .then(response => {
+            setPlayers(players.map(p => p.id !== p1obj.id ? p : response.data))
+          })
+
+        axios
+          .put(`http://localhost:3001/api/player/${p2obj.id}`, p2UpdateObject)
+          .then(response => {
+            setPlayers(players.map(p => p.id !== p2obj.id ? p : response.data))
+          })
+      })
+
     console.log(matches)
+  }
+
+  const addPlayer = (event) => {
+    event.preventDefault()
+
+    const elo = 1200
+
+    const playerObject = {
+      name: name,
+      elo: elo
+    }
+
+    axios
+      .post('http://localhost:3001/api/player/', playerObject)
+      .then(response => {
+        setPlayers(players.concat(response.data))
+        setName('')
+
+        const eloObject = {
+          player: response.data.id,
+          elo: 1200
+        }
+
+        axios
+          .post('http://localhost:3001/api/elo', eloObject)
+          .then(response => {
+            setEloArray(eloArray.concat(response.data))
+          })
+      })
   }
 
   return (
@@ -181,19 +265,28 @@ const App = () => {
           <th>ELO1</th>
           <th>ELO2</th>
         </tr>
-        {console.log(Array.isArray(matches))}
-        {console.log(matches)}        
+      
         {matches.map(match =>
-          <Match date={match.date} p1={match.p1} p2={match.p2} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
+          <Match date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
         )}
         </thead>
       </table>
 
       <h1>Players</h1>
 
-      {players.map(player => 
-        <Player n={player.n} elo={player.elo} />
-      )}
+      <PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Elo</th>
+          </tr>
+            {players.map(player => 
+              <Player n={player.name} elo={player.elo} />
+            )}
+        </thead>
+      </table>
     
     <button onClick={recalc_elo}>
         Run scores!

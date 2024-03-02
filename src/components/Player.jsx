@@ -1,9 +1,14 @@
 const Player = ({n, elo}) => {
   return (
     <>
-      <p>
-        {n} {elo.toFixed(1)}
-      </p>
+      <tr>
+        <td>
+          {n}
+        </td>
+        <td>
+          {elo.toFixed(1)}
+        </td>
+      </tr>
     </>
   )
 }
