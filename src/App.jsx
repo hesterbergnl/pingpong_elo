@@ -3,7 +3,9 @@ import Match from './components/Match'
 import Player from './components/Player'
 import MatchForm from './components/MatchForm'
 import PlayerForm from './components/PlayerForm'
+import eloService from './services/elo'
 import axios from 'axios'
+
 
 
 const App = () => {
@@ -192,16 +194,16 @@ const App = () => {
             elo: updated_elo.p2_updated_elo
           }
 
-          axios
-            .post('http://localhost:3001/api/elo', elo1Object)
-            .then(response => {
-              setEloArray(eloArray.concat(response.data))
+          eloService
+            .create(elo1Object)
+            .then(newEloObj => {
+              setEloArray(eloArray.concat(newEloObj))
             })
           
-          axios
-            .post('http://localhost:3001/api/elo', elo2Object)
-            .then(response => {
-              setEloArray(eloArray.concat(response.data))
+          eloService
+            .create(elo2Object)
+            .then(newEloObj => {
+              setEloArray(eloArray.concat(newEloObj))
             })
 
           const p1UpdateObject = {
@@ -242,7 +244,6 @@ const App = () => {
       .post('http://localhost:3001/api/player/', playerObject)
       .then(response => {
         setPlayers(players.concat(response.data).sort(compareElo))
-        sortPlayers()
         setName('')
 
         const eloObject = {
@@ -250,10 +251,10 @@ const App = () => {
           elo: 1200
         }
 
-        axios
-          .post('http://localhost:3001/api/elo', eloObject)
-          .then(response => {
-            setEloArray(eloArray.concat(response.data))
+        eloService
+          .create(eloObject)
+          .then(newEloObj => {
+            setEloArray(eloArray.concat(newEloObj))
           })
       })
   }
