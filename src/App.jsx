@@ -81,10 +81,21 @@ const App = () => {
   const calc_elo = (p1elo, p2elo, p1s, p2s) => {
     let actual_p1 = p1s > p2s ? 1.0 : 0.0
     let actual_p2 = Math.abs(1 - actual_p1)
+    console.log(`P1 score: ${p1s}`)
+    console.log(`P2 score: ${p2s}`)
+    console.log(`P1 win? ${actual_p1}`)
+    console.log(`P2 win? ${actual_p2}`)
+
 
     let prob = probability_of_win(p1elo, p2elo)
+    console.log(`Probability of P1 to win: ${prob}`)
     let p1_new_elo = elo_update(p1elo, actual_p1, prob)
+    console.log(`P1 initial elo: ${p1elo}`)
+    console.log(`P1 updated elo: ${p1_new_elo}`)
     let p2_new_elo = elo_update(p2elo, actual_p2, 1.0 - prob)
+    console.log(`P2 initial elo: ${p2elo}`)
+    console.log(`P2 updated elo: ${p2_new_elo}`)
+    
     return {
       p1_updated_elo: p1_new_elo,
       p2_updated_elo: p2_new_elo
@@ -146,7 +157,7 @@ const App = () => {
     
     let matchDate = Date()
 
-    let updated_elo = calc_elo(p1obj.elo, p2obj.elo, p1score, p2score)
+    let updated_elo = calc_elo(p1obj.elo, p2obj.elo, Number(p1score), Number(p2score))
 
     console.log(updated_elo)
     console.log(matches)
@@ -274,7 +285,7 @@ const App = () => {
 
       <h1>Players</h1>
 
-      <PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
+      < PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
 
       <table>
         <thead>
