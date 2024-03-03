@@ -20,21 +20,21 @@ const App = () => {
     axios
       .get('http://localhost:3001/api/match')
       .then(response => {
-        setMatches(response.data)
+        setMatches(response.data.sort(compareDates))
       })
   }
 
-  useEffect(matchHook, [])
+  useEffect(matchHook, [matches])
 
   const playerHook = () => {
     axios
       .get('http://localhost:3001/api/player')
       .then(response => {
-        setPlayers(response.data)
+        setPlayers(response.data.sort(compareElo))
       })
   }
 
-  useEffect(playerHook, [])
+  useEffect(playerHook, [players])
 
   const eloHook = () => {
     axios
@@ -174,61 +174,58 @@ const App = () => {
 
     axios
       .post('http://localhost:3001/api/match', newMatchObj)
-      .then(response => {
-        setMatches(matches.concat(response.data))
-        setp1('')
-        setp2('')
-        setp1score('')
-        setp2score('')
+        .then(response => {
+          setp1('')
+          setp2('')
+          setp1score('')
+          setp2score('')
 
-        const elo1Object = {
-          player: p1obj.id,
-          match: response.data.id,
-          elo: updated_elo.p1_updated_elo
-        }
+          const elo1Object = {
+            player: p1obj.id,
+            match: response.data.id,
+            elo: updated_elo.p1_updated_elo
+          }
 
-        const elo2Object = {
-          player: p2obj.id,
-          match: response.data.id,
-          elo: updated_elo.p2_updated_elo
-        }
+          const elo2Object = {
+            player: p2obj.id,
+            match: response.data.id,
+            elo: updated_elo.p2_updated_elo
+          }
 
-        axios
-          .post('http://localhost:3001/api/elo', elo1Object)
-          .then(response => {
-            setEloArray(eloArray.concat(response.data))
-          })
-        
-        axios
-          .post('http://localhost:3001/api/elo', elo2Object)
-          .then(response => {
-            setEloArray(eloArray.concat(response.data))
-          })
+          axios
+            .post('http://localhost:3001/api/elo', elo1Object)
+            .then(response => {
+              setEloArray(eloArray.concat(response.data))
+            })
+          
+          axios
+            .post('http://localhost:3001/api/elo', elo2Object)
+            .then(response => {
+              setEloArray(eloArray.concat(response.data))
+            })
 
-        const p1UpdateObject = {
-          player: p1obj.id,
-          elo: updated_elo.p1_updated_elo
-        }
+          const p1UpdateObject = {
+            player: p1obj.id,
+            elo: updated_elo.p1_updated_elo
+          }
 
-        const p2UpdateObject = {
-          player: p2obj.id,
-          elo: updated_elo.p2_updated_elo
-        }
+          const p2UpdateObject = {
+            player: p2obj.id,
+            elo: updated_elo.p2_updated_elo
+          }
 
-        axios
-          .put(`http://localhost:3001/api/player/${p1obj.id}`, p1UpdateObject)
-          .then(response => {
-            setPlayers(players.map(p => p.id !== p1obj.id ? p : response.data))
-          })
+          axios
+            .put(`http://localhost:3001/api/player/${p1obj.id}`, p1UpdateObject)
+            .then(response => {
+              setPlayers(players.map(p => p.id !== p1obj.id ? p : response.data).sort(compareElo))
+            })
 
-        axios
-          .put(`http://localhost:3001/api/player/${p2obj.id}`, p2UpdateObject)
-          .then(response => {
-            setPlayers(players.map(p => p.id !== p2obj.id ? p : response.data))
-          })
+          axios
+            .put(`http://localhost:3001/api/player/${p2obj.id}`, p2UpdateObject)
+            .then(res => {
+              setPlayers(players.map(p => p.id !== p2obj.id ? p : res.data).sort(compareElo))
+            })
       })
-
-    console.log(matches)
   }
 
   const addPlayer = (event) => {
@@ -244,7 +241,8 @@ const App = () => {
     axios
       .post('http://localhost:3001/api/player/', playerObject)
       .then(response => {
-        setPlayers(players.concat(response.data))
+        setPlayers(players.concat(response.data).sort(compareElo))
+        sortPlayers()
         setName('')
 
         const eloObject = {
@@ -258,6 +256,17 @@ const App = () => {
             setEloArray(eloArray.concat(response.data))
           })
       })
+  }
+
+  const compareElo = (a, b) => {
+    return b.elo - a.elo
+  }
+
+  const compareDates= (a, b) => {
+    if(b.date < a.date) {
+      return -1
+    }
+    return 1
   }
 
   return (
@@ -278,7 +287,7 @@ const App = () => {
         </tr>
       
         {matches.map(match =>
-          <Match date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
+          <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
         )}
         </thead>
       </table>
@@ -294,7 +303,7 @@ const App = () => {
             <th>Elo</th>
           </tr>
             {players.map(player => 
-              <Player n={player.name} elo={player.elo} />
+              <Player key={player.id} n={player.name} elo={player.elo} />
             )}
         </thead>
       </table>
