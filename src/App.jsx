@@ -272,6 +272,15 @@ const App = () => {
 
   return (
     <>
+      <select>
+
+        <option value="fruit">Fruit</option>
+
+        <option value="vegetable">Vegetable</option>
+
+        <option value="meat">Meat</option>
+
+      </select>
       <h1>Matches</h1>
       <MatchForm p1={p1} updatep1={updatep1} p2={p2} updatep2={updatep2} p1score={p1score} updatep1score={updatep1score} p2score={p2score} updatep2score={updatep2score} addMatch={addMatch}/>
 
