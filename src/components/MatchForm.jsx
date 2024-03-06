@@ -14,14 +14,14 @@ const MatchForm = (props) => {
           </tr>
           <tr>
             <td>
-              <select>
+              <select onChange={props.updatep1}>
                 {props.players.map(player =>
                   <OptionSelect key={player.id} name={player.name} />
                 )}
               </select>
             </td>
             <td>
-              <select>
+              <select onChange={props.updatep2}>
                 {props.players.map(player =>
                   <OptionSelect key={player.id} name={player.name} />
                 )}
