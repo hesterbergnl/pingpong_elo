@@ -1,3 +1,5 @@
+import OptionSelect from './OptionSelect'
+
 const MatchForm = (props) => {
   return (
     <form onSubmit={props.addMatch}>
@@ -11,8 +13,20 @@ const MatchForm = (props) => {
             <td></td>
           </tr>
           <tr>
-            <td><input value={props.p1} onChange={props.updatep1}/></td>
-            <td><input value={props.p2} onChange={props.updatep2}/></td>
+            <td>
+              <select>
+                {props.players.map(player =>
+                  <OptionSelect key={player.id} name={player.name} />
+                )}
+              </select>
+            </td>
+            <td>
+              <select>
+                {props.players.map(player =>
+                  <OptionSelect key={player.id} name={player.name} />
+                )}
+              </select>
+            </td>
             <td><input value={props.p1score} onChange={props.updatep1score}/></td>
             <td><input value={props.p2score} onChange={props.updatep2score}/></td>
             <td><button type='submit'> Add </button></td>
