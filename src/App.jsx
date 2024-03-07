@@ -117,9 +117,12 @@ const App = () => {
   }
 
   const recalc_elo = () => {
+    let allPlayers = []
+    let allMatches = []
+
     eloService.deleteAll()
 
-    players.forEach((player) => {
+    allPlayers.forEach((player) => {
       
       const updatedPlayer = {
         name: player.name,
@@ -132,9 +135,21 @@ const App = () => {
       })
     })
 
-    matches.forEach((match) => {
-      let p1_index = players.findIndex((player) => player.n == match.p1)
-      let p2_index = players.findIndex((player) => player.n == match.p2)
+    playerService
+      .getAll()
+      .then((data) => {
+        allPlayers = data
+      })
+
+    matchService
+      .getAll()
+      .then((data) => {
+        allMatches = data
+      })
+
+    allMatches.forEach((match) => {
+      let p1_index = allPlayers.findIndex((player) => player.n == match.p1)
+      let p2_index = allPlayers.findIndex((player) => player.n == match.p2)
 
       let p1 = players[p1_index]
       let p2 = players[p2_index]
@@ -237,12 +252,12 @@ const App = () => {
             })
 
           const p1UpdateObject = {
-            player: p1obj.id,
+            name: p1obj.name,
             elo: updated_elo.p1_updated_elo
           }
 
           const p2UpdateObject = {
-            player: p2obj.id,
+            name: p2obj.name,
             elo: updated_elo.p2_updated_elo
           }
 
