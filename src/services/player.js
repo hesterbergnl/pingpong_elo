@@ -16,4 +16,4 @@ const update = (id, newObject) => {
   return req.then(res => res.data)
 }
 
-export default { getAll, getAllByPlayer, create, update }
+export default { getAll, create, update }

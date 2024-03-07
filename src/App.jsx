@@ -4,8 +4,8 @@ import Player from './components/Player'
 import MatchForm from './components/MatchForm'
 import PlayerForm from './components/PlayerForm'
 import eloService from './services/elo'
-import axios from 'axios'
-
+import playerService from './services/player'
+import matchService from './services/match'
 
 
 const App = () => {
@@ -19,30 +19,42 @@ const App = () => {
   const [name, setName] = useState('')
 
   const matchHook = () => {
-    axios
-      .get('http://localhost:3001/api/match')
-      .then(response => {
-        setMatches(response.data.sort(compareDates))
+    matchService
+      .getAll()
+      .then(data => {
+        setMatches(data.sort(compareDates).slice(0,10))
+      })
+      .catch((error) => {
+        console.log(error.message)
       })
   }
 
   useEffect(matchHook, [matches])
 
   const playerHook = () => {
-    axios
-      .get('http://localhost:3001/api/player')
-      .then(response => {
-        setPlayers(response.data.sort(compareElo))
+    playerService
+      .getAll()
+      .then(data => {
+        setPlayers(data.sort(compareElo))
+        if(typeof data != undefined) {
+          setp1(data[0].name)
+        }
+      })
+      .catch((error) => {
+        console.log(error.message)
       })
   }
 
   useEffect(playerHook, [players])
 
   const eloHook = () => {
-    axios
-      .get('http://localhost:3001/api/elo')
-      .then(response => {
-        setEloArray(response.data)
+    eloService
+      .getAll()
+      .then(data => {
+        setEloArray(data)
+      })
+      .catch((error) => {
+        console.log(error.message)
       })
   }
 
@@ -105,6 +117,21 @@ const App = () => {
   }
 
   const recalc_elo = () => {
+    eloService.deleteAll()
+
+    players.forEach((player) => {
+      
+      const updatedPlayer = {
+        name: player.name,
+        elo: 1200
+      }
+
+      playerService.update(player.id, updatedPlayer)
+        .then(newPlayer1Obj => {
+          setPlayers(players.map(p => p.id !== newPlayer1Obj.id ? p : newPlayer1Obj).sort(compareElo))
+      })
+    })
+
     matches.forEach((match) => {
       let p1_index = players.findIndex((player) => player.n == match.p1)
       let p2_index = players.findIndex((player) => player.n == match.p2)
@@ -143,14 +170,17 @@ const App = () => {
   const addMatch = (event) => {
     event.preventDefault()
 
-    let p1obj = players.find((player) => player.name == p1)
+    console.log(`p1: ${p1}`)
+    console.log(`p2: ${p2}`)
+
+    let p1obj = players.find((player) => player.name === p1)
 
     if (typeof p1obj === undefined) {
       console.log('p1 not found')
       return
     }
 
-    let p2obj = players.find((player) => player.name == p2)
+    let p2obj = players.find((player) => player.name === p2)
 
     if (typeof p2obj === undefined) {
       console.log('p2 not found')
@@ -159,10 +189,10 @@ const App = () => {
     
     let matchDate = Date()
 
-    let updated_elo = calc_elo(p1obj.elo, p2obj.elo, Number(p1score), Number(p2score))
+    console.log(players)
+    console.log(`p1 obj: ${p1obj}, p2 obj: ${p2obj}`)
 
-    console.log(updated_elo)
-    console.log(matches)
+    let updated_elo = calc_elo(p1obj.elo, p2obj.elo, Number(p1score), Number(p2score))
 
     let newMatchObj = {
       date: matchDate,
@@ -174,9 +204,9 @@ const App = () => {
       elo2: updated_elo.p2_updated_elo,
     }
 
-    axios
-      .post('http://localhost:3001/api/match', newMatchObj)
-        .then(response => {
+    matchService
+      .create(newMatchObj)
+        .then(retMatchObj => {
           setp1('')
           setp2('')
           setp1score('')
@@ -184,13 +214,13 @@ const App = () => {
 
           const elo1Object = {
             player: p1obj.id,
-            match: response.data.id,
+            match: retMatchObj.id,
             elo: updated_elo.p1_updated_elo
           }
 
           const elo2Object = {
             player: p2obj.id,
-            match: response.data.id,
+            match: retMatchObj.id,
             elo: updated_elo.p2_updated_elo
           }
 
@@ -216,16 +246,16 @@ const App = () => {
             elo: updated_elo.p2_updated_elo
           }
 
-          axios
-            .put(`http://localhost:3001/api/player/${p1obj.id}`, p1UpdateObject)
-            .then(response => {
-              setPlayers(players.map(p => p.id !== p1obj.id ? p : response.data).sort(compareElo))
+          playerService
+            .update(p1obj.id, p1UpdateObject)
+            .then(newPlayer1Obj => {
+              setPlayers(players.map(p => p.id !== newPlayer1Obj.id ? p : newPlayer1Obj).sort(compareElo))
             })
 
-          axios
-            .put(`http://localhost:3001/api/player/${p2obj.id}`, p2UpdateObject)
-            .then(res => {
-              setPlayers(players.map(p => p.id !== p2obj.id ? p : res.data).sort(compareElo))
+          playerService
+            .update(p2obj.id, p2UpdateObject)
+            .then(newPlayer2Obj => {
+              setPlayers(players.map(p => p.id !== newPlayer2Obj.id ? p : newPlayer2Obj).sort(compareElo))
             })
       })
   }
@@ -240,14 +270,14 @@ const App = () => {
       elo: elo
     }
 
-    axios
-      .post('http://localhost:3001/api/player/', playerObject)
-      .then(response => {
-        setPlayers(players.concat(response.data).sort(compareElo))
+    playerService.
+      create(playerObject)
+      .then(newPlayerObj => {
+        setPlayers(players.concat(newPlayerObj).sort(compareElo))
         setName('')
 
         const eloObject = {
-          player: response.data.id,
+          player: newPlayerObj.id,
           elo: 1200
         }
 
