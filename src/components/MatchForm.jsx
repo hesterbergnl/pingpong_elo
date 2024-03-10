@@ -15,6 +15,7 @@ const MatchForm = (props) => {
           <tr>
             <td>
               <select onChange={props.updatep1}>
+                <option>Player 1</option>
                 {props.players.map(player =>
                   <OptionSelect key={player.id} name={player.name} />
                 )}
@@ -22,6 +23,7 @@ const MatchForm = (props) => {
             </td>
             <td>
               <select onChange={props.updatep2}>
+                <option>Player 2</option>
                 {props.players.map(player =>
                   <OptionSelect key={player.id} name={player.name} />
                 )}

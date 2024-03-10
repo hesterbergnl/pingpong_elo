@@ -36,9 +36,6 @@ const App = () => {
       .getAll()
       .then(data => {
         setPlayers(data.sort(compareElo))
-        if(typeof data != undefined) {
-          setp1(data[0].name)
-        }
       })
       .catch((error) => {
         console.log(error.message)
@@ -220,9 +217,7 @@ const App = () => {
     }
 
     const retMatchObj = await matchService.create(newMatchObj)
-    
-    setp1('')
-    setp2('')
+
     setp1score('')
     setp2score('')
 

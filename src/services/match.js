@@ -8,6 +8,7 @@ const getAll = () => {
 
 const getAllByPlayer = (playerId) => {
   const req = axios.get(`${baseUrl}/${playerId}`)
+  return req.then(res => res.data)
 }
 
 const create = newObject => {
