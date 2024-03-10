@@ -29,7 +29,7 @@ const App = () => {
       })
   }
 
-  useEffect(matchHook, [matches])
+  useEffect(matchHook, [])
 
   const playerHook = () => {
     playerService
@@ -45,7 +45,7 @@ const App = () => {
       })
   }
 
-  useEffect(playerHook, [players])
+  useEffect(playerHook, [])
 
   const eloHook = () => {
     eloService
@@ -182,7 +182,7 @@ const App = () => {
     console.log(players)
   }
 
-  const addMatch = (event) => {
+  const addMatch = async (event) => {
     event.preventDefault()
 
     console.log(`p1: ${p1}`)
@@ -219,60 +219,50 @@ const App = () => {
       elo2: updated_elo.p2_updated_elo,
     }
 
-    matchService
-      .create(newMatchObj)
-        .then(retMatchObj => {
-          setp1('')
-          setp2('')
-          setp1score('')
-          setp2score('')
+    const retMatchObj = await matchService.create(newMatchObj)
+    
+    setp1('')
+    setp2('')
+    setp1score('')
+    setp2score('')
 
-          const elo1Object = {
-            player: p1obj.id,
-            match: retMatchObj.id,
-            elo: updated_elo.p1_updated_elo
-          }
+    setMatches(matches.concat(retMatchObj).sort(compareDates).slice(0,10))
 
-          const elo2Object = {
-            player: p2obj.id,
-            match: retMatchObj.id,
-            elo: updated_elo.p2_updated_elo
-          }
+    const elo1Object = {
+      player: p1obj.id,
+      match: retMatchObj.id,
+      elo: updated_elo.p1_updated_elo
+    }
 
-          eloService
-            .create(elo1Object)
-            .then(newEloObj => {
-              setEloArray(eloArray.concat(newEloObj))
-            })
-          
-          eloService
-            .create(elo2Object)
-            .then(newEloObj => {
-              setEloArray(eloArray.concat(newEloObj))
-            })
+    const elo2Object = {
+      player: p2obj.id,
+      match: retMatchObj.id,
+      elo: updated_elo.p2_updated_elo
+    }
 
-          const p1UpdateObject = {
-            name: p1obj.name,
-            elo: updated_elo.p1_updated_elo
-          }
+    const newElo1Obj = await eloService.create(elo1Object)
+    setEloArray(eloArray.concat(newElo1Obj))
 
-          const p2UpdateObject = {
-            name: p2obj.name,
-            elo: updated_elo.p2_updated_elo
-          }
+    const newElo2Obj = await eloService.create(elo2Object)
+    setEloArray(eloArray.concat(newElo2Obj))
 
-          playerService
-            .update(p1obj.id, p1UpdateObject)
-            .then(newPlayer1Obj => {
-              setPlayers(players.map(p => p.id !== newPlayer1Obj.id ? p : newPlayer1Obj).sort(compareElo))
-            })
+    const p1UpdateObject = {
+      name: p1obj.name,
+      elo: updated_elo.p1_updated_elo
+    }
 
-          playerService
-            .update(p2obj.id, p2UpdateObject)
-            .then(newPlayer2Obj => {
-              setPlayers(players.map(p => p.id !== newPlayer2Obj.id ? p : newPlayer2Obj).sort(compareElo))
-            })
-      })
+    const p2UpdateObject = {
+      name: p2obj.name,
+      elo: updated_elo.p2_updated_elo
+    }
+
+    const newPlayer1Obj = await playerService.update(p1obj.id, p1UpdateObject)
+    const newPlayer2Obj = await  playerService.update(p2obj.id, p2UpdateObject)
+    
+    let newPArray = players.map(p => p.id !== newPlayer1Obj.id ? p : newPlayer1Obj).sort(compareElo)
+    newPArray = newPArray.map(p => p.id !== newPlayer2Obj.id ? p : newPlayer2Obj).sort(compareElo)
+
+    setPlayers(newPArray)
   }
 
   const addPlayer = (event) => {
