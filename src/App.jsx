@@ -188,7 +188,7 @@ const App = () => {
     const allElo = await eloService.getAll()
 
     setMatches(allMatches.sort(compareDates).slice(0,10))
-    setPlayers(allPlayers.sort(elo))
+    setPlayers(allPlayers.sort(compareElo))
     setEloArray(allElo)
   }
 
