@@ -23,7 +23,7 @@ const App = () => {
     matchService
       .getAll()
       .then(data => {
-        setMatches(data.sort(compareDates).slice(0,10))
+        setMatches(data.sort(compareDates))
       })
       .catch((error) => {
         console.log(error.message)
@@ -188,7 +188,7 @@ const App = () => {
     const allPlayers = await playerService.getAll()
     const allElo = await eloService.getAll()
 
-    setMatches(allMatches.sort(compareDates).slice(0,10))
+    setMatches(allMatches.sort(compareDates))
     setPlayers(allPlayers.sort(compareElo))
     setEloArray(allElo)
   }
@@ -235,7 +235,7 @@ const App = () => {
     setp1score('')
     setp2score('')
 
-    setMatches(matches.concat(retMatchObj).sort(compareDates).slice(0,10))
+    setMatches(matches.concat(retMatchObj).sort(compareDates))
 
     const elo1Object = {
       player: p1obj.id,
@@ -360,26 +360,21 @@ const App = () => {
       </>
     )
   }
-
-  const loadPlayerArrays = async () => {
-    const playerMatches = await matchService.getAllByPlayer(selectedPlayer.id)
-    const playerElos = await eloService.getAllByPlayer(selectedPlayer.id)
-
-    return {playerMatches, playerElos}
-  }
   
   const playerRender = () => {
-    const playerData = loadPlayerArrays().then((data) => {
-      console.log(playerData)
+    console.log(matches)
+    console.log(eloArray)
 
-      return (
-        <>
-          <h1>hello</h1>
-          <Player n={selectedPlayer.name} elo={selectedPlayer.elo} clickedPlayerName={() => {setSelectedPlayer(setSelectedPlayer)}} />
-          <button onClick={() => {setSelectedPlayer(null)}}>Back</button>
-        </>
-      )
-    })
+    var playerMatches = matches.filter(m => m.p1.id === selectedPlayer.id || m.p2.id === selectedPlayer.id)
+    var playerElos = eloArray.filter(e => e.player.id === selectedPlayer.id)
+
+    return (
+      <>
+        <h1>hello</h1>
+        <Player n={selectedPlayer.name} elo={selectedPlayer.elo} clickedPlayerName={() => {setSelectedPlayer(setSelectedPlayer)}} />
+        <button onClick={() => {setSelectedPlayer(null)}}>Back</button>
+      </>
+    )
   }
 
   return (
