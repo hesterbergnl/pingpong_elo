@@ -17,6 +17,7 @@ const App = () => {
   const [p1score, setp1score] = useState(0)
   const [p2score, setp2score] = useState(0)
   const [name, setName] = useState('')
+  const [selectedPlayer, setSelectedPlayer] = useState(null)
 
   const matchHook = () => {
     matchService
@@ -313,49 +314,77 @@ const App = () => {
     return 1
   }
 
+  const mainPageRender = () => {
+    return(
+      <>
+        <h1>Matches</h1>
+          <MatchForm p1={p1} updatep1={updatep1} p2={p2} updatep2={updatep2} p1score={p1score} updatep1score={updatep1score} p2score={p2score} updatep2score={updatep2score} addMatch={addMatch} players={players}/>
+
+          <table>
+            <thead>
+            <tr>
+              <th>Date</th>
+              <th>P1</th>
+              <th>P2</th>
+              <th>S1</th>
+              <th>S2</th>
+              <th>ELO1</th>
+              <th>ELO2</th>
+            </tr>
+          
+            {matches.map(match =>
+              <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
+            )}
+            </thead>
+          </table>
+
+          <h1>Players</h1>
+
+          < PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
+
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Elo</th>
+              </tr>
+                {players.map(player => 
+                  <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
+                )}
+            </thead>
+          </table>
+        
+        <button onClick={recalc_elo}>
+            Run scores!
+        </button>
+      </>
+    )
+  }
+
+  const loadPlayerArrays = async () => {
+    const playerMatches = await matchService.getAllByPlayer(selectedPlayer.id)
+    const playerElos = await eloService.getAllByPlayer(selectedPlayer.id)
+
+    return {playerMatches, playerElos}
+  }
+  
+  const playerRender = () => {
+    const playerData = loadPlayerArrays().then((data) => {
+      console.log(playerData)
+
+      return (
+        <>
+          <h1>hello</h1>
+          <Player n={selectedPlayer.name} elo={selectedPlayer.elo} clickedPlayerName={() => {setSelectedPlayer(setSelectedPlayer)}} />
+          <button onClick={() => {setSelectedPlayer(null)}}>Back</button>
+        </>
+      )
+    })
+  }
+
   return (
     <>
-      <h1>Matches</h1>
-      <MatchForm p1={p1} updatep1={updatep1} p2={p2} updatep2={updatep2} p1score={p1score} updatep1score={updatep1score} p2score={p2score} updatep2score={updatep2score} addMatch={addMatch} players={players}/>
-
-      <table>
-        <thead>
-        <tr>
-          <th>Date</th>
-          <th>P1</th>
-          <th>P2</th>
-          <th>S1</th>
-          <th>S2</th>
-          <th>ELO1</th>
-          <th>ELO2</th>
-        </tr>
-      
-        {matches.map(match =>
-          <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
-        )}
-        </thead>
-      </table>
-
-      <h1>Players</h1>
-
-      < PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
-
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Elo</th>
-          </tr>
-            {players.map(player => 
-              <Player key={player.id} n={player.name} elo={player.elo} />
-            )}
-        </thead>
-      </table>
-    
-    <button onClick={recalc_elo}>
-        Run scores!
-    </button> 
-
+      {selectedPlayer === null ? mainPageRender() : playerRender()}
     </>
   )
 }

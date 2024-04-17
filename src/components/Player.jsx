@@ -1,9 +1,9 @@
-const Player = ({n, elo}) => {
+const Player = ({n, elo, clickedPlayerName}) => {
   return (
     <>
       <tr>
         <td>
-          {n}
+          <a onClick={clickedPlayerName}>{n}</a>
         </td>
         <td>
           {elo.toFixed(1)}
