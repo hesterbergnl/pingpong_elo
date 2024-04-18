@@ -6,6 +6,7 @@ import PlayerForm from './components/PlayerForm'
 import eloService from './services/elo'
 import playerService from './services/player'
 import matchService from './services/match'
+import Graph from './components/Graph'
 
 
 const App = () => {
@@ -372,6 +373,7 @@ const App = () => {
       <>
         <h1>hello</h1>
         <Player n={selectedPlayer.name} elo={selectedPlayer.elo} clickedPlayerName={() => {setSelectedPlayer(setSelectedPlayer)}} />
+        <Graph playerElos={playerElos} />
         <button onClick={() => {setSelectedPlayer(null)}}>Back</button>
       </>
     )
