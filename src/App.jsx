@@ -251,10 +251,11 @@ const App = () => {
     }
 
     const newElo1Obj = await eloService.create(elo1Object)
-    setEloArray(eloArray.concat(newElo1Obj))
-
     const newElo2Obj = await eloService.create(elo2Object)
-    setEloArray(eloArray.concat(newElo2Obj))
+
+    const newEloObjs = [newElo1Obj, newElo2Obj]
+
+    setEloArray((eloArray) => [...eloArray, ...newEloObjs])
 
     const p1UpdateObject = {
       name: p1obj.name,
@@ -273,6 +274,8 @@ const App = () => {
     newPArray = newPArray.map(p => p.id !== newPlayer2Obj.id ? p : newPlayer2Obj).sort(compareElo)
 
     setPlayers(newPArray)
+    console.log(eloArray)
+
   }
 
   const addPlayer = (event) => {
@@ -315,45 +318,55 @@ const App = () => {
     return 1
   }
 
+  const scrollStyle = {
+    width: '400px',
+    height: '400px',
+    overflow: 'scroll'
+  }
+
   const mainPageRender = () => {
     return(
       <>
         <h1>Matches</h1>
           <MatchForm p1={p1} updatep1={updatep1} p2={p2} updatep2={updatep2} p1score={p1score} updatep1score={updatep1score} p2score={p2score} updatep2score={updatep2score} addMatch={addMatch} players={players}/>
-
-          <table>
-            <thead>
-            <tr>
-              <th>Date</th>
-              <th>P1</th>
-              <th>P2</th>
-              <th>S1</th>
-              <th>S2</th>
-              <th>ELO1</th>
-              <th>ELO2</th>
-            </tr>
           
-            {matches.map(match =>
-              <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
-            )}
-            </thead>
-          </table>
+          <div style={scrollStyle}>
+            <table>
+              <thead>
+              <tr>
+                <th>Date</th>
+                <th>P1</th>
+                <th>P2</th>
+                <th>S1</th>
+                <th>S2</th>
+                <th>ELO1</th>
+                <th>ELO2</th>
+              </tr>
+            
+              {matches.map(match =>
+                <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
+              )}
+              </thead>
+            </table>
+          </div>
 
           <h1>Players</h1>
 
           < PlayerForm addPlayer={addPlayer} name={name} updateName={updateName} />
-
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Elo</th>
-              </tr>
-                {players.map(player => 
-                  <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
-                )}
-            </thead>
-          </table>
+          
+          <div style={scrollStyle}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Elo</th>
+                </tr>
+                  {players.map(player => 
+                    <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
+                  )}
+              </thead>
+            </table>
+          </div>
         
         <button onClick={recalc_elo}>
             Run scores!
@@ -362,6 +375,11 @@ const App = () => {
     )
   }
   
+  const graphStyle = {
+    width: '800px',
+    height: '400px'
+  }
+
   const playerRender = () => {
     console.log(matches)
     console.log(eloArray)
@@ -371,10 +389,34 @@ const App = () => {
 
     return (
       <>
-        <h1>hello</h1>
-        <Player n={selectedPlayer.name} elo={selectedPlayer.elo} clickedPlayerName={() => {setSelectedPlayer(setSelectedPlayer)}} />
-        <Graph playerElos={playerElos} />
-        <button onClick={() => {setSelectedPlayer(null)}}>Back</button>
+        <h1>Name: {selectedPlayer.name}</h1>
+        <h2>Elo: {selectedPlayer.elo}</h2>
+        <button onClick={() => {setSelectedPlayer(null)}}>Back to Overview</button>
+        <h2>Matches:</h2>
+        <div style={scrollStyle}>
+            <table>
+              <thead>
+              <tr>
+                <th>Date</th>
+                <th>P1</th>
+                <th>P2</th>
+                <th>S1</th>
+                <th>S2</th>
+                <th>ELO1</th>
+                <th>ELO2</th>
+              </tr>
+            
+              {playerMatches.map(match =>
+                <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2}/>
+              )}
+              </thead>
+            </table>
+          </div>
+        
+        <h2>Elo History:</h2>
+        <div style={graphStyle}>
+          <Graph playerElos={playerElos} />
+        </div>
       </>
     )
   }
