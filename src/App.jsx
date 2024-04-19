@@ -238,13 +238,13 @@ const App = () => {
 
     setMatches(matches.concat(retMatchObj).sort(compareDates))
 
-    const elo1Object = {
+    let elo1Object = {
       player: p1obj.id,
       match: retMatchObj.id,
       elo: updated_elo.p1_updated_elo
     }
 
-    const elo2Object = {
+    let elo2Object = {
       player: p2obj.id,
       match: retMatchObj.id,
       elo: updated_elo.p2_updated_elo
@@ -253,9 +253,9 @@ const App = () => {
     const newElo1Obj = await eloService.create(elo1Object)
     const newElo2Obj = await eloService.create(elo2Object)
 
-    const newEloObjs = [newElo1Obj, newElo2Obj]
+    let newEloArray = 
 
-    setEloArray((eloArray) => [...eloArray, ...newEloObjs])
+    setEloArray(eloArray.concat(newElo1Obj).concat(newElo2Obj))
 
     const p1UpdateObject = {
       name: p1obj.name,
