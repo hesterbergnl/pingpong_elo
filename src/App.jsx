@@ -390,7 +390,7 @@ const App = () => {
     return (
       <>
         <h1>Name: {selectedPlayer.name}</h1>
-        <h2>Elo: {selectedPlayer.elo}</h2>
+        <h2>Elo: {selectedPlayer.elo.toFixed(1)}</h2>
         <button onClick={() => {setSelectedPlayer(null)}}>Back to Overview</button>
         <h2>Matches:</h2>
         <div style={scrollStyle}>
