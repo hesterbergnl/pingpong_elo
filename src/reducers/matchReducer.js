@@ -35,3 +35,14 @@ export const createMatch = (match) => {
     dispatch(appendMatch(newMatch))
   }
 }
+
+export const updateMatch = (id, match) => {
+  return async dispatch => {
+    const updatedMatch = await matchService.update(id, match)
+    dispatch(replaceMatch(updatedMatch))
+  }
+}
+
+export const { appendMatch, setMatches, replaceMatch } = matchSlice.actions
+
+export default matchSlice.reducer
