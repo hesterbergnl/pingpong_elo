@@ -7,6 +7,7 @@ import eloService from './services/elo'
 import playerService from './services/player'
 import matchService from './services/match'
 import Graph from './components/Graph'
+import Players from './components/Players'
 
 import { initializePlayers } from './reducers/playerReducer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -369,6 +370,8 @@ const App = () => {
         <button onClick={recalc_elo}>
             Run scores!
         </button>
+
+        <Players />
       </>
     )
   }
