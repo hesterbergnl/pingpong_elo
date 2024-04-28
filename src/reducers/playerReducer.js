@@ -4,7 +4,7 @@ import playerService from '../services/player'
 
 const playerSlice = createSlice({
   name: 'players',
-  initalState: [],
+  initialState: [],
   reducers: {
     appendPlayer(state, action) {
       state.push(action.payload)
@@ -25,6 +25,7 @@ const playerSlice = createSlice({
 export const initializePlayers = () => {
   return async dispatch => {
     const players = await playerService.getAll()
+    console.log(players)
     dispatch(setPlayers(players))
   }
 }

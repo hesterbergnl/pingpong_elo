@@ -8,6 +8,9 @@ import playerService from './services/player'
 import matchService from './services/match'
 import Graph from './components/Graph'
 
+import { initializePlayers } from './reducers/playerReducer'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const App = () => {
   const [matches, setMatches] = useState([])
@@ -19,6 +22,8 @@ const App = () => {
   const [p2score, setp2score] = useState(0)
   const [name, setName] = useState('')
   const [selectedPlayer, setSelectedPlayer] = useState(null)
+
+  const dispatch = useDispatch()
 
   const matchHook = () => {
     matchService
@@ -33,18 +38,9 @@ const App = () => {
 
   useEffect(matchHook, [])
 
-  const playerHook = () => {
-    playerService
-      .getAll()
-      .then(data => {
-        setPlayers(data.sort(compareElo))
-      })
-      .catch((error) => {
-        console.log(error.message)
-      })
-  }
-
-  useEffect(playerHook, [])
+  useEffect(() => {
+    dispatch(initializePlayers())
+  }, [dispatch])
 
   const eloHook = () => {
     eloService
@@ -324,6 +320,8 @@ const App = () => {
     overflow: 'scroll'
   }
 
+  const state_players = useSelector(state => state.players)
+
   const mainPageRender = () => {
     return(
       <>
@@ -361,7 +359,7 @@ const App = () => {
                   <th>Name</th>
                   <th>Elo</th>
                 </tr>
-                  {players.map(player => 
+                  {state_players.map(player => 
                     <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
                   )}
               </thead>
