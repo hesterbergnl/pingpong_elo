@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux'
+
 export const compareElo = (a, b) => {
   return b.elo - a.elo
 }
@@ -9,16 +11,28 @@ export const compareDates= (a, b) => {
   return 1
 }
 
-export const probability_of_win = (r1, r2) => {
+const probability_of_win = (r1, r2) => {
   return (1.0 / (1.0 + Math.pow(10, ((r2 - r1) / 400))))
 }
 
-export const  elo_update= (rating, actual, probability) => {
+const  elo_update= (rating, actual, probability) => {
   // let total_score = actual + opponent
   // let expected = probability * total_score
   const k = 30
   
   return rating + (k * (actual - probability))
+}
+
+export const get_player_elos_from_matches = () => {
+  const matches = useSelector(state => state.matches)
+
+  const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1}))
+
+  const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2}))
+
+  const elo_array = p1_elos.concat(p2_elos)
+
+  return elo_array
 }
 
 export const calc_elo = (p1elo, p2elo, p1s, p2s) => {
