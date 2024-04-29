@@ -1,23 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import playerService from '../services/player'
+import { compareElo } from '../util/helpers'
+
 
 const playerSlice = createSlice({
   name: 'players',
   initialState: [],
   reducers: {
     appendPlayer(state, action) {
-      state.push(action.payload)
+      state.push(action.payload).sort(compareElo)
     },
     setPlayers(state, action) {
-      return action.payload
+      return action.payload.sort(compareElo)
     },
     replacePlayer(state, action) {
       const id = action.payload.id
 
       return state.map(player => {
         player.id !== id ? player : action.payload
-      })
+      }).sort(compareElo)
     }
   }
 })

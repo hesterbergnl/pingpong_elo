@@ -30,7 +30,7 @@ export const get_player_elos_from_matches = () => {
 
   const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2}))
 
-  const elo_array = p1_elos.concat(p2_elos).sort(compare)
+  const elo_array = p1_elos.concat(p2_elos).sort(compareDates)
 
   return elo_array
 }

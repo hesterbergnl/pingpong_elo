@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setPlayer } from '../reducers/selectedPlayerReducer'
 
-
 import PlayerForm from './PlayerForm'
 import Player from './Player'
 
@@ -16,6 +15,8 @@ const Players = () => {
 
   const state_players = useSelector(state => state.players)
 
+  const sorted_players = [...state_players]
+
   return (
     <>
       <h1>Players</h1>
@@ -29,7 +30,7 @@ const Players = () => {
               <th>Name</th>
               <th>Elo</th>
             </tr>
-              {state_players.map(player => 
+              {sorted_players.map(player => 
                 <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player.id))}/>
               )}
           </thead>
