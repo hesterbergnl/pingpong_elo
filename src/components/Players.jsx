@@ -1,4 +1,6 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setPlayer } from '../reducers/selectedPlayerReducer'
+
 
 import PlayerForm from './PlayerForm'
 import Player from './Player'
@@ -10,6 +12,8 @@ const scrollStyle = {
 }
 
 const Players = () => {
+  const dispatch = useDispatch()
+
   const state_players = useSelector(state => state.players)
 
   return (
@@ -26,7 +30,7 @@ const Players = () => {
               <th>Elo</th>
             </tr>
               {state_players.map(player => 
-                <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
+                <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player.id))}/>
               )}
           </thead>
         </table>
