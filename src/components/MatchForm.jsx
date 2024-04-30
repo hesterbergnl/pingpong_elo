@@ -1,4 +1,9 @@
+import { calc_elo } from '../util/helpers'
+
 import OptionSelect from './OptionSelect'
+import { useDispatch, useSelector } from 'react-redux'
+import { createMatch } from '../reducers/matchReducer'
+import { updateplayer } from '../reducers/playerReducer'
 
 const MatchForm = (props) => {
   return (
