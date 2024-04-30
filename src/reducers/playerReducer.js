@@ -9,7 +9,7 @@ const playerSlice = createSlice({
   initialState: [],
   reducers: {
     appendPlayer(state, action) {
-      state.push(action.payload).sort(compareElo)
+      return state.concat(action.payload).sort(compareElo)
     },
     setPlayers(state, action) {
       return action.payload.sort(compareElo)

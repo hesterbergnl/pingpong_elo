@@ -15,8 +15,6 @@ const Players = () => {
 
   const state_players = useSelector(state => state.players)
 
-  const sorted_players = [...state_players]
-
   return (
     <>
       <h1>Players</h1>
@@ -30,7 +28,7 @@ const Players = () => {
               <th>Name</th>
               <th>Elo</th>
             </tr>
-              {sorted_players.map(player => 
+              {state_players.map(player => 
                 <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player.id))}/>
               )}
           </thead>

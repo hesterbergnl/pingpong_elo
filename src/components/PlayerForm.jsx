@@ -19,20 +19,7 @@ const PlayerForm = () => {
       elo: elo
     }
     
-    console.log(dispatch(createPlayer(newPlayer)))
-
-    const state_players = useSelector(state => state.players)
-
-    console.log(`state_players: ${state_players}`)
-
-    newPlayer = state_players.filter(p => p.name === name)
-
-    const eloObject = {
-      player: newPlayer.id,
-      elo: 1200
-    }
-
-    dispatch(createElos(eloObject))
+    dispatch(createPlayer(newPlayer))
   }
   
   return (

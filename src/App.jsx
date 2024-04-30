@@ -8,8 +8,10 @@ import playerService from './services/player'
 import matchService from './services/match'
 import Graph from './components/Graph'
 import Players from './components/Players'
+import Matches from './components/Matches'
 
 import { initializePlayers } from './reducers/playerReducer'
+import { initializeMatches } from './reducers/matchReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -38,6 +40,10 @@ const App = () => {
   }
 
   useEffect(matchHook, [])
+
+  useEffect(() => {
+    dispatch(initializeMatches())
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(initializePlayers())
@@ -370,7 +376,8 @@ const App = () => {
         <button onClick={recalc_elo}>
             Run scores!
         </button>
-
+        
+        <Matches />
         <Players />
       </>
     )
