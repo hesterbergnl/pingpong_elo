@@ -16,6 +16,11 @@ const playerSlice = createSlice({
     },
     replacePlayer(state, action) {
       const id = action.payload.id
+      console.log(`Action Payload: ${action.payload}`)
+
+      console.log(state.map(player => {
+        player.id !== id ? player : action.payload
+      }))
 
       return state.map(player => {
         console.log(`Inside reducer: ${player.id}, ${id}`)
