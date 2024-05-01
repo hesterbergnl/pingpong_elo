@@ -1,4 +1,4 @@
-import MatchForm from './PlayerForm'
+import MatchForm from './MatchForm'
 import Match from './Match'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,7 +18,7 @@ const Matches = () => {
     <>
       <h1>Matches</h1>
       
-      {/*<MatchForm /> */}
+      <MatchForm />
 
       <div style={scrollStyle}>
         <table>

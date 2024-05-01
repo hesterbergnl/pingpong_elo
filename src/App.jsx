@@ -366,6 +366,7 @@ const App = () => {
                   <th>Name</th>
                   <th>Elo</th>
                 </tr>
+                  {console.log(`state players: ${state_players}`)}
                   {state_players.map(player => 
                     <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => setSelectedPlayer(player)}/>
                   )}
