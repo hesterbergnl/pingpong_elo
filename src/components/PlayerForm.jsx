@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createPlayer } from '../reducers/playerReducer'
 import { createElos } from '../reducers/eloReducer'
 
