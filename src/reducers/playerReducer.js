@@ -18,6 +18,7 @@ const playerSlice = createSlice({
       const id = action.payload.id
 
       return state.map(player => {
+        console.log(`Inside reducer: ${player.id}, ${id}`)
         player.id !== id ? player : action.payload
       }).sort(compareElo)
     }
