@@ -7,9 +7,8 @@ import eloService from './services/elo'
 import playerService from './services/player'
 import matchService from './services/match'
 import Graph from './components/Graph'
-import Players from './components/Players'
-import Matches from './components/Matches'
 import PlayerDetail from './components/PlayerDetail'
+import MainPage from './components/MainPage'
 
 import { initializePlayers } from './reducers/playerReducer'
 import { initializeMatches } from './reducers/matchReducer'
@@ -380,8 +379,7 @@ const App = () => {
             Run scores!
         </button>
         
-        <Matches />
-        <Players />
+        <MainPage />
       </>
     )
   }

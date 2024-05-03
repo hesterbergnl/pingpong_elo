@@ -24,11 +24,10 @@ const PlayerDetail = () => {
       <h1>{selectedPlayer.name}</h1>
       <h2>Elo: {selectedPlayer.elo}</h2>
       <h2>Number of Matches: {playerElos.length}</h2>
-      <h1>Elo History</h1>
+
       <Matches />
 
-      console.log()
-
+      <h1>Elo History</h1>
       <div style={graphStyle}>
         <Graph playerElos={playerElos} />
       </div>

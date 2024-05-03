@@ -23,8 +23,6 @@ const Matches = () => {
     <>
       <h1>Matches</h1>
       
-      <MatchForm />
-
       <div style={scrollStyle}>
         <table>
           <thead>
