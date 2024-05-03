@@ -1,24 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import matchService from '../services/match'
-import { compareDates } from '../util/helpers'
+import { compareDatesRev } from '../util/helpers'
 
 const matchSlice = createSlice({
   name: 'matches',
   initialState: [],
   reducers: {
     appendMatch(state, action) {
-      return state.concat(action.payload).sort(compareDates)
+      return state.concat(action.payload).sort(compareDatesRev)
     },
     setMatches(state, action) {
-      return action.payload.sort(compareDates)
+      return action.payload.sort(compareDatesRev)
     },
     replaceMatch(state, action) {
       const id = action.payload.id
 
       return state.map(match => {
         match.id !== id ? match : action.payload
-      }).sort(compareDates)
+      }).sort(compareDatesRev)
     }
   }
 })

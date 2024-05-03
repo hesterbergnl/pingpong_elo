@@ -29,7 +29,7 @@ const Players = () => {
               <th>Elo</th>
             </tr>
               {state_players.map(player => 
-                <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player.id))}/>
+                <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player))}/>
               )}
           </thead>
         </table>

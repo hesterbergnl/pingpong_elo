@@ -9,6 +9,7 @@ import matchService from './services/match'
 import Graph from './components/Graph'
 import Players from './components/Players'
 import Matches from './components/Matches'
+import PlayerDetail from './components/PlayerDetail'
 
 import { initializePlayers } from './reducers/playerReducer'
 import { initializeMatches } from './reducers/matchReducer'
@@ -24,7 +25,8 @@ const App = () => {
   const [p1score, setp1score] = useState(0)
   const [p2score, setp2score] = useState(0)
   const [name, setName] = useState('')
-  const [selectedPlayer, setSelectedPlayer] = useState(null)
+  // const [selectedPlayer, setSelectedPlayer] = useState(null)
+  const selectedPlayer = useSelector(state => state.selectedPlayer)
 
   const dispatch = useDispatch()
 
@@ -426,11 +428,13 @@ const App = () => {
         <div style={graphStyle}>
           <Graph playerElos={playerElos} />
         </div>
+        <PlayerDetail />
       </>
     )
   }
 
   return (
+    
     <>
       {selectedPlayer === null ? mainPageRender() : playerRender()}
     </>

@@ -4,11 +4,18 @@ export const compareElo = (a, b) => {
   return b.elo - a.elo
 }
 
-export const compareDates= (a, b) => {
+export const compareDatesRev = (a, b) => {
   if(b.date < a.date) {
     return -1
   }
   return 1
+}
+
+export const compareDates = (a, b) => {
+  if(b.date > a.date) {
+    return 1
+  }
+  return -1
 }
 
 const probability_of_win = (r1, r2) => {
@@ -24,13 +31,13 @@ const  elo_update= (rating, actual, probability) => {
 }
 
 export const get_player_elos_from_matches = () => {
-  const matches = useSelector(state => state.matches)
+  var matches = useSelector(state => state.matches)
 
   const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1}))
 
   const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2}))
 
-  const elo_array = p1_elos.concat(p2_elos).sort(compareDates)
+  const elo_array = p1_elos.concat(p2_elos).sort(compareDatesRev)
 
   return elo_array
 }
