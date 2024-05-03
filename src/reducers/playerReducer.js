@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 import playerService from '../services/player'
 import { compareElo } from '../util/helpers'
+import eloReducer from './eloReducer'
 
 
 const playerSlice = createSlice({
@@ -15,17 +16,11 @@ const playerSlice = createSlice({
       return action.payload.sort(compareElo)
     },
     replacePlayer(state, action) {
-      const id = action.payload.id
-      console.log(`Action Payload: ${action.payload}`)
+      // For troubleshooting, use current(state)
+      // console.log(`State: ${JSON.stringify(current(state))}`)
+      const {id, elo } = action.payload
 
-      console.log(state.map(player => {
-        player.id !== id ? player : action.payload
-      }))
-
-      return state.map(player => {
-        console.log(`Inside reducer: ${player.id}, ${id}`)
-        player.id !== id ? player : action.payload
-      }).sort(compareElo)
+      return state.map(player => player.id === id ? {...player, elo:elo } : player).sort(compareElo)
     }
   }
 })
@@ -33,7 +28,6 @@ const playerSlice = createSlice({
 export const initializePlayers = () => {
   return async dispatch => {
     const players = await playerService.getAll()
-    console.log(players)
     dispatch(setPlayers(players))
   }
 }

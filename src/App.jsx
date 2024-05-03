@@ -329,7 +329,7 @@ const App = () => {
 
   const state_players = useSelector(state => state.players)
 
-  const mainPageRender = () => {
+  const mainPageRender = () => { 
     return(
       <>
         <h1>Matches</h1>

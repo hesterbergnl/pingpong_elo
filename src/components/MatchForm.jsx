@@ -36,7 +36,7 @@ const MatchForm = (props) => {
     let p2score = parseInt(event.target.p2score.value)
     let matchDate = Date()
 
-    console.log(state_players)
+    console.log(JSON.stringify(state_players))
     console.log(`p1 obj: ${p1obj}, p2 obj: ${p2obj}`)
 
     let updated_elo = calc_elo(p1obj.elo, p2obj.elo, p1score, p2score)
