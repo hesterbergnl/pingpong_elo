@@ -29,7 +29,7 @@ const PlayerDetail = () => {
 
       <h1>Elo History</h1>
       <div style={graphStyle}>
-        <Graph playerElos={playerElos} />
+        <Graph playerElos={playerElos.reverse()} />
       </div>
       <button onClick={() => dispatch(clearPlayer())}>Back</button>
     </>

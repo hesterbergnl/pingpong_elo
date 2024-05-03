@@ -33,9 +33,9 @@ const  elo_update= (rating, actual, probability) => {
 export const get_player_elos_from_matches = () => {
   var matches = useSelector(state => state.matches)
 
-  const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1}))
+  const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
 
-  const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2}))
+  const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
 
   const elo_array = p1_elos.concat(p2_elos).sort(compareDatesRev)
 
