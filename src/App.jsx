@@ -31,6 +31,9 @@ const App = () => {
         <button onClick={recalcElo}>
             Run scores!
         </button>
+        <button>
+          Login
+        </button>
       </>
     )
   }
