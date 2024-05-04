@@ -17,7 +17,11 @@ const PlayerDetail = () => {
   const elos = get_player_elos_from_matches()
 
   var playerElos = elos.filter(elo => elo.p.id === selectedPlayer.id)
-  playerElos = playerElos.sort(compareDates)
+  const initialElo = {
+    p: selectedPlayer,
+    elo: 1200
+  }
+  playerElos = playerElos.concat(initialElo)
 
   return (
     <>
