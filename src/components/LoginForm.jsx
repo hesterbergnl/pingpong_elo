@@ -1,28 +1,40 @@
+import loginService from '../services/login'
+
 const LoginForm = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
+
+    const username = event.target.username.value
+    const password = event.target.password.value
     
     try {
       const user = await loginService.login({
         username, password,
       })
-      setUser(user)
-      setUsername('')
-      setPassword('')
+      console.log(JSON.stringify(user))
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      console.log('wrong credentials')
     }
+
+    event.target.username.value = ''
+    event.target.password.value = ''
   }
 
   return (
     <>
       <form onSubmit={handleLogin}>
-        <input type='text' name='username' />
-        <input type='password' name='password' />
+        <div>
+          Username: 
+          <input type='text' name='username' />
+        </div>
+        <div>
+          Password: 
+          <input type='password' name='password' />
+        </div>
+        <button type='submit'>login</button>
       </form>
     </>
  ) 
 }
+
+export default LoginForm

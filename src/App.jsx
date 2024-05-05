@@ -1,8 +1,6 @@
-import eloService from './services/elo'
-import playerService from './services/player'
-import matchService from './services/match'
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
+import LoginForm from './components/LoginForm'
 import { recalcElo } from './util/helpers'
 
 import { useEffect } from 'react'
@@ -31,9 +29,7 @@ const App = () => {
         <button onClick={recalcElo}>
             Run scores!
         </button>
-        <button>
-          Login
-        </button>
+        <LoginForm />
       </>
     )
   }
