@@ -2,8 +2,6 @@ import { createSlice, current } from '@reduxjs/toolkit'
 
 import playerService from '../services/player'
 import { compareElo } from '../util/helpers'
-import eloReducer from './eloReducer'
-
 
 const playerSlice = createSlice({
   name: 'players',

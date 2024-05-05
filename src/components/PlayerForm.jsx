@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { createPlayer } from '../reducers/playerReducer'
-import { createElos } from '../reducers/eloReducer'
 
 const PlayerForm = () => {
   const dispatch = useDispatch()
