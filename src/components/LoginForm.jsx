@@ -1,20 +1,16 @@
-import loginService from '../services/login'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../reducers/loginUserReducer'
 
 const LoginForm = () => {
+  const dispatch = useDispatch()
+
   const handleLogin = async (event) => {
     event.preventDefault()
 
     const username = event.target.username.value
     const password = event.target.password.value
     
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-      console.log(JSON.stringify(user))
-    } catch (exception) {
-      console.log('wrong credentials')
-    }
+    dispatch(loginUser({username, password}))
 
     event.target.username.value = ''
     event.target.password.value = ''
