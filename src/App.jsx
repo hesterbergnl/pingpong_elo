@@ -1,6 +1,5 @@
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
-import LoginForm from './components/LoginForm'
 import { recalcElo } from './util/helpers'
 
 import { useEffect } from 'react'
@@ -29,7 +28,6 @@ const App = () => {
         <button onClick={recalcElo}>
             Run scores!
         </button>
-        <LoginForm />
       </>
     )
   }
