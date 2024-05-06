@@ -26,19 +26,24 @@ const PlayerForm = () => {
     dispatch(createPlayer(newPlayer, config))
   }
   
-  return (
-    <form onSubmit={addPlayer}>
-      <table>
-       <thead>
-        <tr>
-            <td>Name</td>
-            <td><input name='name'/></td>
-            <td><button type='submit'> Add </button></td>
-          </tr>
-       </thead>
-      </table>
-    </form>
-  )
+  if (user === null) {
+    return null
+  }
+  else {
+    return (
+      <form onSubmit={addPlayer}>
+        <table>
+         <thead>
+          <tr>
+              <td>Name</td>
+              <td><input name='name'/></td>
+              <td><button type='submit'> Add </button></td>
+            </tr>
+         </thead>
+        </table>
+      </form>
+    )
+  }
 }
 
 export default PlayerForm

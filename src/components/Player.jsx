@@ -6,7 +6,7 @@ const Player = ({n, elo, clickedPlayerName}) => {
           <a onClick={clickedPlayerName}>{n}</a>
         </td>
         <td>
-          {elo.toFixed(1)}
+          {Math.round(elo)}
         </td>
       </tr>
     </>

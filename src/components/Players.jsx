@@ -13,11 +13,12 @@ const scrollStyle = {
 const Players = () => {
   const dispatch = useDispatch()
 
-  const state_players = useSelector(state => state.players)
+  const players = useSelector(state => state.players)
+  const loginPlayer = useSelector(state => state.loginPlayer)
 
   return (
     <>
-      <h1>Players</h1>
+      <h3>Players</h3>
 
       <PlayerForm />
       
@@ -28,7 +29,7 @@ const Players = () => {
               <th>Name</th>
               <th>Elo</th>
             </tr>
-              {state_players.map(player => 
+              {players.map(player => 
                 <Player key={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player))}/>
               )}
           </thead>

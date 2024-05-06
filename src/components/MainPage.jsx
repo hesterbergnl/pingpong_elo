@@ -3,6 +3,7 @@ import Matches from './Matches'
 import Players from './Players'
 import LoginForm from './LoginForm'
 import LogoutButton from './LogoutButton'
+import Header from './Header'
 
 import { useSelector } from 'react-redux'
 
@@ -11,6 +12,7 @@ const MainPage = () => {
 
   return (
     <>
+      <Header />
       <MatchForm />
       <Matches />
       <Players />

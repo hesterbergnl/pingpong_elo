@@ -71,40 +71,43 @@ const MatchForm = (props) => {
   }
   
   return (
-    <form onSubmit={addMatch}>
-      <table>
-        <tbody>
-          <tr>
-            <td>Player 1</td>
-            <td>Player 2</td>
-            <td>Player 1 Score</td>
-            <td>Player 2 Score</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <select name='player1'>
-                <option>Player 1</option>
-                {state_players.map(player =>
-                  <OptionSelect key={player.id} name={player.name} />
-                )}
-              </select>
-            </td>
-            <td>
-              <select name='player2'>
-                <option>Player 2</option>
-                {state_players.map(player =>
-                  <OptionSelect key={player.id} name={player.name} />
-                )}
-              </select>
-            </td>
-            <td><input name='p1score'/></td>
-            <td><input name='p2score'/></td>
-            <td><button type='submit'> Add </button></td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
+    <>
+      <h3>Enter new match</h3>
+      <form onSubmit={addMatch}>
+        <table>
+          <tbody>
+            <tr>
+              <td>Player 1</td>
+              <td>Player 2</td>
+              <td>Player 1 Score</td>
+              <td>Player 2 Score</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                <select name='player1'>
+                  <option>Player 1</option>
+                  {state_players.map(player =>
+                    <OptionSelect key={player.id} name={player.name} />
+                  )}
+                </select>
+              </td>
+              <td>
+                <select name='player2'>
+                  <option>Player 2</option>
+                  {state_players.map(player =>
+                    <OptionSelect key={player.id} name={player.name} />
+                  )}
+                </select>
+              </td>
+              <td><input name='p1score'/></td>
+              <td><input name='p2score'/></td>
+              <td><button type='submit'> Add </button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </>
   )
 }
 

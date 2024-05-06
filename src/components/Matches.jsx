@@ -21,7 +21,7 @@ const Matches = () => {
 
   return (
     <>
-      <h1>Matches</h1>
+      <h3>Matches</h3>
       
       <div style={scrollStyle}>
         <table>
