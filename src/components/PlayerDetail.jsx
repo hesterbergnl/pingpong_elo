@@ -26,7 +26,7 @@ const PlayerDetail = () => {
   return (
     <>
       <h1>{selectedPlayer.name}</h1>
-      <h2>Elo: {selectedPlayer.elo.toFixed(1)}</h2>
+      <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
       <h2>Number of Matches: {playerElos.length - 1}</h2>
 
       <Matches />
