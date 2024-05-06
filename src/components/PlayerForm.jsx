@@ -1,15 +1,20 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createPlayer } from '../reducers/playerReducer'
 
 const PlayerForm = () => {
   const dispatch = useDispatch()
+  const user = useSelector(store => store.loginUser)
 
   const addPlayer = async (event) => {
     event.preventDefault()
-  
+    
     const elo = 1200
 
     const name = event.target.name.value
+
+    const config = {
+      headers: { Authorization: `Bearer ${user.token}` },
+    }
 
     event.target.name.value = ''
   
@@ -18,7 +23,7 @@ const PlayerForm = () => {
       elo: elo
     }
     
-    dispatch(createPlayer(newPlayer))
+    dispatch(createPlayer(newPlayer, config))
   }
   
   return (

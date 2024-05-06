@@ -30,9 +30,9 @@ export const initializePlayers = () => {
   }
 }
 
-export const createPlayer = (player) => {
+export const createPlayer = (player, config) => {
   return async dispatch => {
-    const newPlayer = await playerService.create(player)
+    const newPlayer = await playerService.create(player, config)
     dispatch(appendPlayer(newPlayer))
   }
 }
