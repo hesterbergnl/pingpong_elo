@@ -18,7 +18,11 @@ const playerSlice = createSlice({
       // console.log(`State: ${JSON.stringify(current(state))}`)
       const {id, elo } = action.payload
 
-      return state.map(player => player.id === id ? {...player, elo:elo } : player).sort(compareElo)
+      return state.map(player => {
+        player.id === id 
+        ? {...player, elo:elo } 
+        : player
+      }).sort(compareElo)
     }
   }
 })
@@ -37,7 +41,7 @@ export const createPlayer = (player, config) => {
   }
 }
 
-export const updateplayer = (id, player) => {
+export const updatePlayer = (id, player) => {
   return async dispatch => {
     const updatedPlayer = await playerService.update(id, player)
     dispatch(replacePlayer(updatedPlayer))

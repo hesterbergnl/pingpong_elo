@@ -1,6 +1,6 @@
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
-import { recalcElo } from './util/helpers'
+import RecalcEloButton from './components/RecalcEloButton'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -25,9 +25,7 @@ const App = () => {
     return(
       <>      
         <MainPage />
-        <button onClick={recalcElo}>
-            Run scores!
-        </button>
+        <RecalcEloButton />
       </>
     )
   }

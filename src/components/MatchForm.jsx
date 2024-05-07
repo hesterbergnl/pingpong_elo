@@ -3,7 +3,7 @@ import { calc_elo } from '../util/helpers'
 import OptionSelect from './OptionSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { createMatch } from '../reducers/matchReducer'
-import { updateplayer } from '../reducers/playerReducer'
+import { updatePlayer } from '../reducers/playerReducer'
 
 const MatchForm = (props) => {
   const dispatch = useDispatch()
@@ -66,8 +66,8 @@ const MatchForm = (props) => {
       elo: updated_elo.p2_updated_elo
     }
 
-   dispatch(updateplayer(p1obj.id, p1UpdateObject))
-   dispatch(updateplayer(p2obj.id, p2UpdateObject))
+   dispatch(updatePlayer(p1obj.id, p1UpdateObject))
+   dispatch(updatePlayer(p2obj.id, p2UpdateObject))
   }
   
   return (

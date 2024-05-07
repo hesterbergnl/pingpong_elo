@@ -14,10 +14,16 @@ const matchSlice = createSlice({
       return action.payload.sort(compareDatesRev)
     },
     replaceMatch(state, action) {
-      const id = action.payload.id
+      console.log('action payload: ', action.payload)
+      const {id, date, s1, s2, elo1, elo2} = action.payload
 
+      console.log("date ", date)
+      console.log("id", id)
+      
       return state.map(match => {
-        match.id !== id ? match : action.payload
+        match.id === id 
+        ? {...match, date:date, s1:s1, s2:s2, elo1:elo1, elo2:elo2 } 
+        : match
       }).sort(compareDatesRev)
     }
   }
@@ -39,6 +45,7 @@ export const createMatch = (match) => {
 
 export const updateMatch = (id, match) => {
   return async dispatch => {
+    console.log("async api call: ", id, match)
     const updatedMatch = await matchService.update(id, match)
     dispatch(replaceMatch(updatedMatch))
   }
