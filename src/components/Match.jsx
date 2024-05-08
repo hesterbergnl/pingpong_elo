@@ -13,10 +13,11 @@ const Match = ({date,p1,p2,s1,s2,elo1,elo2,delFunc}) => {
       <td>{s2}</td>
       <td>{Math.round(elo1)}</td>
       <td>{Math.round(elo2)}</td>
-      <td>{user !== null
-      ? <button onClick={delFunc}>delete</button>
-      : null }</td>
-      
+      <td>
+        {user !== null
+        ? <button onClick={delFunc}>delete</button>
+        : null }
+      </td>
     </tr>
   )
 }

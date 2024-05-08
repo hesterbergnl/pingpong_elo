@@ -22,6 +22,11 @@ const playerSlice = createSlice({
           ? { ...player, elo } 
           : player)
         ).sort(compareElo);
+    },
+    removePlayer(state, action) {
+      const id = action.payload
+      return state.filter(player =>
+        player.id !== id)
     }
   }
 })
@@ -47,6 +52,13 @@ export const updatePlayer = (id, player) => {
   }
 }
 
-export const { appendPlayer, setPlayers, replacePlayer } = playerSlice.actions
+export const deletePlayer = (id, config) => {
+  return async dispatch => {
+    await playerService.del(id, config)
+    dispatch(removePlayer(id))
+  }
+}
+
+export const { appendPlayer, setPlayers, replacePlayer, removePlayer } = playerSlice.actions
 
 export default playerSlice.reducer
