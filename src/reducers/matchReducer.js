@@ -20,6 +20,11 @@ const matchSlice = createSlice({
           ? { ...match, date, p1, p2, s1, s2, elo1, elo2 }
           : match
       ).sort(compareDatesRev)
+    },
+    removeMatch(state, action) {
+      const id = action.payload
+      return state.filter(match =>
+        match.id !== id)
     }
   }
 })
@@ -46,6 +51,13 @@ export const updateMatch = (id, match) => {
   }
 }
 
-export const { appendMatch, setMatches, replaceMatch } = matchSlice.actions
+export const deleteMatch = (id, config) => {
+  return async dispatch => {
+    await matchService.del(id, config)
+    dispatch(removeMatch(id))
+  }
+}
+
+export const { appendMatch, setMatches, replaceMatch, removeMatch } = matchSlice.actions
 
 export default matchSlice.reducer
