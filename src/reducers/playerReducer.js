@@ -16,13 +16,12 @@ const playerSlice = createSlice({
     replacePlayer(state, action) {
       // For troubleshooting, use current(state)
       // console.log(`State: ${JSON.stringify(current(state))}`)
-      const {id, elo } = action.payload
-
-      return state.map(player => {
-        player.id === id 
-        ? {...player, elo:elo } 
-        : player
-      }).sort(compareElo)
+      const { id, elo } = action.payload;
+      return state.map(player => 
+        (player.id === id 
+          ? { ...player, elo } 
+          : player)
+        ).sort(compareElo);
     }
   }
 })

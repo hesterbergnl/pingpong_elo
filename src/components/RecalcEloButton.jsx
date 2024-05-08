@@ -27,7 +27,7 @@ const RecalcEloButton = () => {
         p1: p1.id,
         p2: p2.id,
         s1: match.s1,
-        s2: match.score,
+        s2: match.s2,
         elo1: updated_elo.p1_updated_elo,
         elo2: updated_elo.p2_updated_elo,
       }

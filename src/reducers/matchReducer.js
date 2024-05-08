@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 import matchService from '../services/match'
 import { compareDatesRev } from '../util/helpers'
@@ -14,17 +14,12 @@ const matchSlice = createSlice({
       return action.payload.sort(compareDatesRev)
     },
     replaceMatch(state, action) {
-      console.log('action payload: ', action.payload)
-      const {id, date, s1, s2, elo1, elo2} = action.payload
-
-      console.log("date ", date)
-      console.log("id", id)
-      
-      return state.map(match => {
-        match.id === id 
-        ? {...match, date:date, s1:s1, s2:s2, elo1:elo1, elo2:elo2 } 
-        : match
-      }).sort(compareDatesRev)
+      const { id, date, p1, p2, s1, s2, elo1, elo2 } = action.payload;
+      return state.map(match =>
+        match.id === id
+          ? { ...match, date, p1, p2, s1, s2, elo1, elo2 }
+          : match
+      ).sort(compareDatesRev)
     }
   }
 })
