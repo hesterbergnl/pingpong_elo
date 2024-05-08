@@ -48,7 +48,7 @@ const Matches = () => {
             <th>ELO1</th>
             <th>ELO2</th>
           </tr>
-        
+          {console.log(matches)}
           {matches.map(match =>
             <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2} delFunc={() => dispatch(deleteMatch(match.id, config))}/>
           )}

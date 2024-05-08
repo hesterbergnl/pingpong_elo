@@ -27,13 +27,13 @@ const Players = () => {
   }
 
   const delFunc = (id) => {
-    dispatch(deletePlayer(id, config))
-
     for (const match of matches) {
       if(match.p1.id === id || match.p2.id === id) {
-        dispatch(deleteMatch(id, config))
+        dispatch(deleteMatch(match.id, config))
       }
     }
+
+    dispatch(deletePlayer(id, config))
   }
 
   return (
