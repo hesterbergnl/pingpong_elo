@@ -1,5 +1,6 @@
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
+import Matches from './components/Matches'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -7,10 +8,11 @@ import { initializeMatches } from './reducers/matchReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './reducers/loginUserReducer'
 
+import {
+  Routes, Route, Link, useMatch
+} from 'react-router-dom'
 
 const App = () => {
-  const selectedPlayer = useSelector(state => state.selectedPlayer)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,25 +31,29 @@ const App = () => {
     }
   }, [dispatch])
 
-  const mainPageRender = () => { 
-    return(
-      <>      
-        <MainPage />
-      </>
-    )
-  }
+  const players = useSelector(state => state.players)
+  const match = useMatch('/players/:id')
 
-  const playerRender = () => {
-    return (
-      <>
-        <PlayerDetail />
-      </>
-    )
-  }
+  console.log(players)
+  console.log(match)
+  const player = match
+    ? players.find(player => player.id === match.params.id)
+    : null
 
   return (
     <>
-      {selectedPlayer === null ? mainPageRender() : playerRender()}
+      <div>
+        <Link to='/'>home</Link>
+        <Link to='/matches'>matches</Link>
+      </div>
+
+      {console.log(player)}
+
+      <Routes>
+        <Route path='/' element={<MainPage selectedPlayer={player}/>}/>
+        <Route path='/matches' element={<Matches selectedPlayer={player}/>}/>
+        <Route path='/players/:id' element={<PlayerDetail selectedPlayer={player}/>}/>
+      </Routes>
     </>
   )
 }

@@ -8,14 +8,15 @@ import RecalcEloButton from './RecalcEloButton'
 
 import { useSelector } from 'react-redux'
 
-const MainPage = () => {
+const MainPage = ({selectedPlayer}) => {
   const loginUser = useSelector(state => state.loginUser)
 
   return (
     <>
       <Header />
       <MatchForm />
-      <Matches />
+      <Matches selectedPlayer={selectedPlayer}/>
+      {console.log(selectedPlayer)}
       <Players />
       { loginUser === null
         ? <LoginForm />

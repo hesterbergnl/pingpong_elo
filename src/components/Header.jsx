@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setPlayer } from '../reducers/selectedPlayerReducer'
 
 const Header = () => {
   const players = useSelector(state => state.players)

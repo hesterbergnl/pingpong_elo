@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-const Player = ({n, elo, clickedPlayerName, delFunc}) => {
+const Player = ({id, n, elo, delFunc}) => {
   const user = useSelector(state => state.loginUser)
 
   return (
     <>
       <tr>
         <td>
-          <a onClick={clickedPlayerName}>{n}</a>
+          <Link to={`/players/${id}`}>{n}</Link>
         </td>
         <td>
           {Math.round(elo)}

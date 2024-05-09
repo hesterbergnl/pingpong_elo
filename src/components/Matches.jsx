@@ -10,11 +10,10 @@ const scrollStyle = {
   overflow: 'scroll'
 }
 
-const Matches = () => {
+const Matches = ({selectedPlayer}) => {
   const dispatch = useDispatch()
   var matches = useSelector(state => state.matches)
   const user = useSelector(state => state.loginUser)
-  const selectedPlayer = useSelector(state => state.selectedPlayer)
 
   var config = null
 
@@ -25,6 +24,8 @@ const Matches = () => {
   }
 
   console.log(config)
+
+  console.log('Selected player: ', selectedPlayer)
 
   if(selectedPlayer !== null) {
     matches = matches.filter(match => {
