@@ -6,7 +6,7 @@ const LogoutButton = () => {
 
     const handleLogout = async (event) => {
         event.preventDefault()
-
+        window.localStorage.removeItem('loggedPongadminUser')
         dispatch(clearUser())
     }
     return (

@@ -1,11 +1,11 @@
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
-import RecalcEloButton from './components/RecalcEloButton'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
 import { initializeMatches } from './reducers/matchReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from './reducers/loginUserReducer'
 
 
 const App = () => {
@@ -21,11 +21,18 @@ const App = () => {
     dispatch(initializePlayers())
   }, [dispatch])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedPongadminUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      dispatch(setUser(user))
+    }
+  }, [dispatch])
+
   const mainPageRender = () => { 
     return(
       <>      
         <MainPage />
-        <RecalcEloButton />
       </>
     )
   }

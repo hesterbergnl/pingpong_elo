@@ -18,6 +18,9 @@ const loginUserSlice = createSlice({
 export const loginUser = (credentials) => {
   return async dispatch => {
     const user = await loginService.login(credentials)
+    window.localStorage.setItem(
+      'loggedPongadminUser', JSON.stringify(user)
+    ) 
     dispatch(setUser(user))
   }
 }

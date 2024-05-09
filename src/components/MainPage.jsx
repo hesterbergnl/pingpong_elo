@@ -4,6 +4,7 @@ import Players from './Players'
 import LoginForm from './LoginForm'
 import LogoutButton from './LogoutButton'
 import Header from './Header'
+import RecalcEloButton from './RecalcEloButton'
 
 import { useSelector } from 'react-redux'
 
@@ -18,7 +19,10 @@ const MainPage = () => {
       <Players />
       { loginUser === null
         ? <LoginForm />
-        : <LogoutButton />
+        : <> 
+            <LogoutButton /> 
+            <RecalcEloButton />
+          </>
       }
     </>
   )
