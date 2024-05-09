@@ -15,16 +15,8 @@ const MainPage = ({selectedPlayer}) => {
     <>
       <Header />
       <MatchForm />
-      <Matches selectedPlayer={selectedPlayer}/>
-      {console.log(selectedPlayer)}
-      <Players />
-      { loginUser === null
-        ? <LoginForm />
-        : <> 
-            <LogoutButton /> 
-            <RecalcEloButton />
-          </>
-      }
+      <Matches selectedPlayer={selectedPlayer} user={null} qty={5}/>
+      <Players user={null} qty={5}/>
     </>
   )
 }

@@ -48,7 +48,9 @@ const RecalcEloButton = () => {
   matches = [...matches].reverse()
 
   return(
-    <button onClick={() => recalcElo(dispatch, matches, players)}>recalc</button>
+    <div>
+      <button onClick={() => recalcElo(dispatch, matches, players)}>Recalculate Elo Scores</button>
+    </div>
   )
 }
 

@@ -10,10 +10,9 @@ const scrollStyle = {
   overflow: 'scroll'
 }
 
-const Matches = ({selectedPlayer}) => {
+const Matches = ({user, selectedPlayer, qty}) => {
   const dispatch = useDispatch()
   var matches = useSelector(state => state.matches)
-  const user = useSelector(state => state.loginUser)
 
   var config = null
 
@@ -33,6 +32,10 @@ const Matches = ({selectedPlayer}) => {
     })
   }
 
+  if(qty > 0) {
+    matches = matches.slice(0, qty)
+  } 
+
   return (
     <>
       <h3>Matches</h3>
@@ -51,7 +54,7 @@ const Matches = ({selectedPlayer}) => {
           </tr>
           {console.log(matches)}
           {matches.map(match =>
-            <Match key={match.id} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2} delFunc={() => dispatch(deleteMatch(match.id, config))}/>
+            <Match key={match.id} user={user} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2} delFunc={() => dispatch(deleteMatch(match.id, config))}/>
           )}
           </thead>
         </table>

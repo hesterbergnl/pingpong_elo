@@ -10,11 +10,10 @@ const scrollStyle = {
   overflow: 'scroll'
 }
 
-const Players = () => {
+const Players = ({ user, qty }) => {
   const dispatch = useDispatch()
 
-  const players = useSelector(state => state.players)
-  const user = useSelector(state => state.loginUser)
+  var players = useSelector(state => state.players)
   const matches = useSelector(state => state.matches)
 
   var config = null
@@ -24,6 +23,10 @@ const Players = () => {
       headers: { Authorization: `Bearer ${user.token}` },
     }
   }
+
+  if(qty > 0) {
+    players = players.slice(0, qty)
+  } 
 
   const delFunc = (id) => {
     for (const match of matches) {
@@ -49,7 +52,7 @@ const Players = () => {
               <th>Elo</th>
             </tr>
               {players.map(player => 
-                <Player key={player.id} id={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player))} delFunc={() => delFunc(player.id)} />
+                <Player key={player.id} user={user} id={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player))} delFunc={() => delFunc(player.id)} />
               )}
           </thead>
         </table>

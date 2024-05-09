@@ -1,6 +1,9 @@
 import PlayerDetail from './components/PlayerDetail'
 import MainPage from './components/MainPage'
 import Matches from './components/Matches'
+import LoginForm from './components/LoginForm'
+import Players from './components/Players'
+import Admin from './components/Admin'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -11,6 +14,7 @@ import { setUser } from './reducers/loginUserReducer'
 import {
   Routes, Route, Link, useMatch
 } from 'react-router-dom'
+import LogoutButton from './components/LogoutButton'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -31,11 +35,10 @@ const App = () => {
     }
   }, [dispatch])
 
+  const loginUser = useSelector(state => state.loginUser)
   const players = useSelector(state => state.players)
   const match = useMatch('/players/:id')
 
-  console.log(players)
-  console.log(match)
   const player = match
     ? players.find(player => player.id === match.params.id)
     : null
@@ -45,14 +48,25 @@ const App = () => {
       <div>
         <Link to='/'>home</Link>
         <Link to='/matches'>matches</Link>
+        <Link to='/players'>players</Link>
+        {loginUser === null
+          ? <Link to='/login'>login</Link>
+          : <>
+              <Link to='/admin'>admin</Link>
+              <Link to='/logout'>logout</Link>
+            </>}
       </div>
 
       {console.log(player)}
 
       <Routes>
         <Route path='/' element={<MainPage selectedPlayer={player}/>}/>
-        <Route path='/matches' element={<Matches selectedPlayer={player}/>}/>
+        <Route path='/matches' element={<Matches selectedPlayer={player} user={null}/>}/>
+        <Route path='/players' element={<Players user={null}/>}/>
         <Route path='/players/:id' element={<PlayerDetail selectedPlayer={player}/>}/>
+        <Route path='/login' element={<LoginForm/>}/>
+        <Route path='/admin' element={<Admin  user={loginUser}/>}/>
+        <Route path='/logout' element={<LogoutButton/>}/>
       </Routes>
     </>
   )

@@ -1,9 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-const Player = ({id, n, elo, delFunc}) => {
-  const user = useSelector(state => state.loginUser)
-
+const Player = ({id, user, n, elo, delFunc}) => {
   return (
     <>
       <tr>

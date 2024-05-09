@@ -36,7 +36,7 @@ const PlayerDetail = ({ selectedPlayer }) => {
       <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
       <h2>Number of Matches: {playerElos.length - 1}</h2>
 
-      <Matches selectedPlayer={selectedPlayer}/>
+      <Matches selectedPlayer={selectedPlayer} qty={-1}/>
 
       <h1>Elo History</h1>
       <div style={graphStyle}>
