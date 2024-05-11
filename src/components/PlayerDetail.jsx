@@ -3,14 +3,14 @@ import Graph from './Graph'
 import { get_player_elos_from_matches, compareDates } from '../util/helpers'
 
 import { useDispatch } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 const graphStyle = {
   width: '800px',
   height: '400px'
 }
 
-const PlayerDetail = ({ selectedPlayer }) => {
+const PlayerDetail = ({ user, selectedPlayer }) => {
   const dispatch = useDispatch()
 
   console.log(selectedPlayer)
@@ -36,13 +36,13 @@ const PlayerDetail = ({ selectedPlayer }) => {
       <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
       <h2>Number of Matches: {playerElos.length - 1}</h2>
 
-      <Matches selectedPlayer={selectedPlayer} qty={-1}/>
+      <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>
 
       <h1>Elo History</h1>
       <div style={graphStyle}>
         <Graph playerElos={playerElos.reverse()} />
       </div>
-      <button onClick={() => dispatch(clearPlayer())}>Back</button>
+      <Link to='/'>Back</Link>
     </>
   )
 }

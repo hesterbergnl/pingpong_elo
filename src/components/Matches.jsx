@@ -17,6 +17,7 @@ const Matches = ({user, selectedPlayer, qty}) => {
   var config = null
 
   if(user !== null) {
+    console.log('user !== null, user object:', user)
     config = {
       headers: { Authorization: `Bearer ${user.token}` },
     }
@@ -34,7 +35,7 @@ const Matches = ({user, selectedPlayer, qty}) => {
 
   if(qty > 0) {
     matches = matches.slice(0, qty)
-  } 
+  }
 
   return (
     <>

@@ -61,9 +61,9 @@ const App = () => {
 
       <Routes>
         <Route path='/' element={<MainPage selectedPlayer={player}/>}/>
-        <Route path='/matches' element={<Matches selectedPlayer={player} user={null}/>}/>
-        <Route path='/players' element={<Players user={null}/>}/>
-        <Route path='/players/:id' element={<PlayerDetail selectedPlayer={player}/>}/>
+        <Route path='/matches' element={<Matches selectedPlayer={player} user={null} qty={-1}/>}/>
+        <Route path='/players' element={<Players user={null} qty={-1}/>}/>
+        <Route path='/players/:id' element={<PlayerDetail user={null} selectedPlayer={player}/>}/>
         <Route path='/login' element={<LoginForm/>}/>
         <Route path='/admin' element={<Admin  user={loginUser}/>}/>
         <Route path='/logout' element={<LogoutButton/>}/>
