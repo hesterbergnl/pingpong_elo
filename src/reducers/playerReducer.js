@@ -33,8 +33,12 @@ const playerSlice = createSlice({
 
 export const initializePlayers = () => {
   return async dispatch => {
-    const players = await playerService.getAll()
-    dispatch(setPlayers(players))
+    try {
+      const players = await playerService.getAll()
+      dispatch(setPlayers(players))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

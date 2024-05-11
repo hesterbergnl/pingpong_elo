@@ -31,8 +31,12 @@ const matchSlice = createSlice({
 
 export const initializeMatches = () => {
   return async dispatch => {
-    const matches = await matchService.getAll()
-    dispatch(setMatches(matches))
+    try {
+      const matches = await matchService.getAll()
+      dispatch(setMatches(matches))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
