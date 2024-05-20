@@ -42,8 +42,6 @@ const Players = ({ user, qty }) => {
     <>
       <h3>Players</h3>
 
-      <PlayerForm />
-      
       <div style={scrollStyle}>
         <table>
           <thead>
