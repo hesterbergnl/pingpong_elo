@@ -1,7 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
 import playerService from '../services/player'
-import { compareElo } from '../util/helpers'
+import { compareElo, setStatusMessageState } from '../util/helpers'
 
 const playerSlice = createSlice({
   name: 'players',
@@ -37,29 +37,43 @@ export const initializePlayers = () => {
       const players = await playerService.getAll()
       dispatch(setPlayers(players))
     } catch (error) {
-      console.log(error)
+      setStatusMessageState(error.message, true)
     }
   }
 }
 
 export const createPlayer = (player, config) => {
   return async dispatch => {
-    const newPlayer = await playerService.create(player, config)
-    dispatch(appendPlayer(newPlayer))
+    try { 
+      const newPlayer = await playerService.create(player, config)
+      setStatusMessageState(`player added: ${player.name}`, false)
+      dispatch(appendPlayer(newPlayer))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 
 export const updatePlayer = (id, player) => {
   return async dispatch => {
-    const updatedPlayer = await playerService.update(id, player)
-    dispatch(replacePlayer(updatedPlayer))
+    try { 
+      const updatedPlayer = await playerService.update(id, player)
+      dispatch(replacePlayer(updatedPlayer))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 
 export const deletePlayer = (id, config) => {
   return async dispatch => {
-    await playerService.del(id, config)
-    dispatch(removePlayer(id))
+    try { 
+      await playerService.del(id, config)
+      setStatusMessageState(`player deleted: ${id}`, false)
+      dispatch(removePlayer(id))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 

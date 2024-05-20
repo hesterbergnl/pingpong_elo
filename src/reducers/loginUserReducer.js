@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import loginService from '../services/login'
+import { setStatusMessageState } from '../util/helpers'
 
 const loginUserSlice = createSlice({
   name: 'loginUser',
@@ -17,11 +18,16 @@ const loginUserSlice = createSlice({
 
 export const loginUser = (credentials) => {
   return async dispatch => {
-    const user = await loginService.login(credentials)
-    window.localStorage.setItem(
-      'loggedPongadminUser', JSON.stringify(user)
-    ) 
-    dispatch(setUser(user))
+    try { 
+      const user = await loginService.login(credentials)
+      window.localStorage.setItem(
+        'loggedPongadminUser', JSON.stringify(user)
+      )
+      setStatusMessageState(`${user.username} logged in!`, false)
+      dispatch(setUser(user))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 

@@ -1,10 +1,12 @@
-import { calc_elo } from '../util/helpers'
+import { calc_elo, setStatusMessageState } from '../util/helpers'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { updatePlayer } from '../reducers/playerReducer'
 import { updateMatch } from '../reducers/matchReducer'
 
 export const recalcElo = (dispatch, matches, players) => {
+  setStatusMessageState(`recalc in progress... please be patient`, false)
+
   for (const player of players) {
     players = players.map(p => p.id === player.id ? {...p, elo:1200 } : p)
   }
@@ -39,6 +41,8 @@ export const recalcElo = (dispatch, matches, players) => {
   for (const player of players) {
     dispatch(updatePlayer(player.id, player))
   }
+
+  setStatusMessageState(`recalc completed!`, false)
 }
 
 const RecalcEloButton = () => {

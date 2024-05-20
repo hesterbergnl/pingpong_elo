@@ -35,7 +35,6 @@ export const initializeMatches = () => {
       const matches = await matchService.getAll()
       dispatch(setMatches(matches))
     } catch (error) {
-      console.log(error)
       setStatusMessageState(error.message, true)
     }
   }
@@ -43,23 +42,37 @@ export const initializeMatches = () => {
 
 export const createMatch = (match) => {
   return async dispatch => {
-    const newMatch = await matchService.create(match)
-    dispatch(appendMatch(newMatch))
+    try {
+      const newMatch = await matchService.create(match)
+      setStatusMessageState(`match added!`, false)
+      dispatch(appendMatch(newMatch))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 
 export const updateMatch = (id, match) => {
   return async dispatch => {
-    console.log("async api call: ", id, match)
-    const updatedMatch = await matchService.update(id, match)
-    dispatch(replaceMatch(updatedMatch))
+    try {
+      console.log("async api call: ", id, match)
+      const updatedMatch = await matchService.update(id, match)
+      dispatch(replaceMatch(updatedMatch))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 
 export const deleteMatch = (id, config) => {
   return async dispatch => {
-    await matchService.del(id, config)
-    dispatch(removeMatch(id))
+    try { 
+      await matchService.del(id, config)
+      setStatusMessageState(`match removed: ${id}`, false)
+      dispatch(removeMatch(id))
+    } catch (error) {
+      setStatusMessageState(error.message, true)
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { clearUser } from '../reducers/loginUserReducer'
+import { setStatusMessageState } from '../util/helpers'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -10,6 +11,7 @@ const LogoutButton = () => {
     const handleLogout = async (event) => {
         event.preventDefault()
         window.localStorage.removeItem('loggedPongadminUser')
+        setStatusMessageState(`User Logged Out!`, false)
         dispatch(clearUser())
         navigate('/')
     }
