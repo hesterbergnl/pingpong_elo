@@ -1,8 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
 import matchService from '../services/match'
-import { compareDatesRev } from '../util/helpers'
-import { setErrorMessage, clearErrorMessage } from './errorMessageReducer'
+import { compareDatesRev, setStatusMessageState } from '../util/helpers'
 
 const matchSlice = createSlice({
   name: 'matches',
@@ -37,6 +36,7 @@ export const initializeMatches = () => {
       dispatch(setMatches(matches))
     } catch (error) {
       console.log(error)
+      setStatusMessageState(error.message, true)
     }
   }
 }

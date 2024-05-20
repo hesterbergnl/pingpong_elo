@@ -1,4 +1,7 @@
 import { useSelector } from 'react-redux'
+import { setStatusMessage, clearStatusMessage } from '../reducers/statusMessageReducer'
+import store from '../store'
+
 
 export const compareElo = (a, b) => {
   return b.elo - a.elo
@@ -64,4 +67,11 @@ export const calc_elo = (p1elo, p2elo, p1s, p2s) => {
     p1_updated_elo: p1_new_elo,
     p2_updated_elo: p2_new_elo
   }
+}
+
+export const setStatusMessageState = (message, error) => {
+  store.dispatch(setStatusMessage({message:message, error:error}))
+  setTimeout(() => {
+    store.dispatch(clearStatusMessage()) 
+  }, 5000)
 }

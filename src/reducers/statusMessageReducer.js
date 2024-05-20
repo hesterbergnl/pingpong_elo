@@ -5,6 +5,7 @@ const statusMessageSlice = createSlice({
   initialState: null,
   reducers: {
     setStatusMessage(state, action) {
+      console.log(action.payload)
       const { message, error } = action.payload
       return { message: message, error:error }
     },

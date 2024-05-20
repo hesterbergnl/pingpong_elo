@@ -4,6 +4,8 @@ import Matches from './components/Matches'
 import LoginForm from './components/LoginForm'
 import Players from './components/Players'
 import Admin from './components/Admin'
+import StatusMessage from './components/StatusMessage'
+import LogoutButton from './components/LogoutButton'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -14,7 +16,6 @@ import { setUser } from './reducers/loginUserReducer'
 import {
   Routes, Route, Link, useMatch
 } from 'react-router-dom'
-import LogoutButton from './components/LogoutButton'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -56,6 +57,8 @@ const App = () => {
               <Link to='/logout'>logout</Link>
             </>}
       </div>
+
+      <StatusMessage />
 
       {console.log(player)}
 
