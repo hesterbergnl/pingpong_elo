@@ -37,6 +37,7 @@ const PlayerForm = () => {
           <tr>
               <td>Name</td>
               <td><input name='name'/></td>
+              <td><input type='file' name='photo'/></td>
               <td><button type='submit'> Add </button></td>
             </tr>
          </thead>
