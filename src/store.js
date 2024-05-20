@@ -3,14 +3,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import matchReducer from './reducers/matchReducer'
 import playerReducer from './reducers/playerReducer'
 import loginUserReducer from './reducers/loginUserReducer'
-import errorMessageReducer from './reducers/errorMessageReducer'
+import statusMessageReducer from './reducers/statusMessageReducer'
 
 const store = configureStore({
   reducer: {
     matches: matchReducer,
     players: playerReducer,
     loginUser: loginUserReducer,
-    errorMessage: errorMessageReducer
+    statusMessage: statusMessageReducer
   }
 })
 

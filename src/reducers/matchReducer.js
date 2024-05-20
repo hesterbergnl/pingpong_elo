@@ -2,6 +2,7 @@ import { createSlice, current } from '@reduxjs/toolkit'
 
 import matchService from '../services/match'
 import { compareDatesRev } from '../util/helpers'
+import { setErrorMessage, clearErrorMessage } from './errorMessageReducer'
 
 const matchSlice = createSlice({
   name: 'matches',
