@@ -15,6 +15,7 @@ const Players = ({ user, qty }) => {
 
   var players = useSelector(state => state.players)
   const matches = useSelector(state => state.matches)
+  console.log(players)
 
   var config = null
 

@@ -11,14 +11,20 @@ const PlayerForm = () => {
     const elo = 1200
 
     const name = event.target.name.value
+    const photo = event.target.photo.files[0]
+    console.log(photo)
 
     const config = {
-      headers: { Authorization: `Bearer ${user.token}` },
+      headers: { 
+        Authorization: `Bearer ${user.token}`,
+        'Content-Type': 'multipart/form-data'
+      },
     }
 
     event.target.name.value = ''
   
     let newPlayer = {
+      photo: photo,
       name: name,
       elo: elo
     }

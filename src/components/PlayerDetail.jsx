@@ -5,9 +5,15 @@ import { get_player_elos_from_matches, compareDates } from '../util/helpers'
 import { useDispatch } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 
+const baseUrl = 'http://localhost:3001'
+
 const graphStyle = {
   width: '800px',
   height: '400px'
+}
+
+const imgStyle = {
+  width: '300px',
 }
 
 const PlayerDetail = ({ user, selectedPlayer }) => {
@@ -35,6 +41,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
       <h1>{selectedPlayer.name}</h1>
       <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
       <h2>Number of Matches: {playerElos.length - 1}</h2>
+      <img style={imgStyle} src={`${baseUrl}/${selectedPlayer.photo}`} alt='player photo' />
 
       <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>
 
