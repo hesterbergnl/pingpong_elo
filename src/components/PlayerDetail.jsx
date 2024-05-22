@@ -2,7 +2,7 @@ import Matches from './Matches'
 import Graph from './Graph'
 import { get_player_elos_from_matches, compareDates } from '../util/helpers'
 
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
 
 const baseUrl = 'http://localhost:3001'
@@ -17,7 +17,9 @@ const imgStyle = {
 }
 
 const PlayerDetail = ({ user, selectedPlayer }) => {
-  const dispatch = useDispatch()
+  const players = useSelector(state => state.players)
+  const rank = players.findIndex(player => player.id === selectedPlayer.id) + 1
+  const playerCount = players.length
 
   console.log(selectedPlayer)
 
@@ -39,6 +41,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
   return (
     <>
       <h1>{selectedPlayer.name}</h1>
+      <h2>Rank: {rank} out of {playerCount}</h2>
       <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
       <h2>Number of Matches: {playerElos.length - 1}</h2>
       <img style={imgStyle} src={`${baseUrl}/${selectedPlayer.photo}`} alt='player photo' />
