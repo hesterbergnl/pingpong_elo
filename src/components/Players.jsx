@@ -1,14 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { deletePlayer } from '../reducers/playerReducer'
 import { deleteMatch } from '../reducers/matchReducer'
-import PlayerForm from './PlayerForm'
 import Player from './Player'
-
-const scrollStyle = {
-  width: '400px',
-  height: '400px',
-  overflow: 'scroll'
-}
+import { Table } from 'react-bootstrap'
 
 const Players = ({ user, qty }) => {
   const dispatch = useDispatch()
@@ -43,18 +37,18 @@ const Players = ({ user, qty }) => {
     <>
       <h3>Players</h3>
 
-      <div style={scrollStyle}>
-        <table>
+      <div>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Name</th>
               <th>Elo</th>
             </tr>
               {players.map(player => 
-                <Player key={player.id} user={user} id={player.id} n={player.name} elo={player.elo} clickedPlayerName={() => dispatch(setPlayer(player))} delFunc={() => delFunc(player.id)} />
+                <Player key={player.id} user={user} id={player.id} n={player.name} elo={player.elo} delFunc={() => delFunc(player.id)} />
               )}
           </thead>
-        </table>
+        </Table>
       </div>
     </>
   )

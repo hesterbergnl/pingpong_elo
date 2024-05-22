@@ -11,11 +11,11 @@ const Player = ({id, user, n, elo, delFunc}) => {
         <td>
           {Math.round(elo)}
         </td>
-        <td>
-          {user !== null
-          ? <button onClick={delFunc}>delete</button>
-          : null}         
-        </td>
+        {user !== null
+        ? <td>
+            <button onClick={delFunc}>delete</button>
+          </td>
+        : null}         
       </tr>
     </>
   )

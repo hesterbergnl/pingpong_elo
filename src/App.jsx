@@ -45,7 +45,7 @@ const App = () => {
     : null
 
   return (
-    <>
+    <div className='container'>
       <div>
         <Link to='/'>home</Link>
         <Link to='/matches'>matches</Link>
@@ -71,7 +71,7 @@ const App = () => {
         <Route path='/admin' element={<Admin  user={loginUser}/>}/>
         <Route path='/logout' element={<LogoutButton/>}/>
       </Routes>
-    </>
+    </div>
   )
 }
 
