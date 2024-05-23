@@ -41,9 +41,9 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
   return (
     <>
       <h1>{selectedPlayer.name}</h1>
-      <h2>Rank: {rank} out of {playerCount}</h2>
+      <h2>Rank: {rank} of {playerCount}</h2>
       <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
-      <h2>Number of Matches: {playerElos.length - 1}</h2>
+      <h2>Match Count: {playerElos.length - 1}</h2>
       <img style={imgStyle} src={`${baseUrl}/${selectedPlayer.photo}`} alt='player photo' />
 
       <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>

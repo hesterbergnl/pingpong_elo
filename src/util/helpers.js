@@ -73,5 +73,5 @@ export const setStatusMessageState = (message, error) => {
   store.dispatch(setStatusMessage({message:message, error:error}))
   setTimeout(() => {
     store.dispatch(clearStatusMessage()) 
-  }, 5000)
+  }, 2500)
 }

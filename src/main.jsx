@@ -5,6 +5,10 @@ import store from './store'
 import {
   BrowserRouter as Router,
 } from 'react-router-dom'
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import App from './App.jsx'
 

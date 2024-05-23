@@ -6,6 +6,7 @@ import Players from './components/Players'
 import Admin from './components/Admin'
 import StatusMessage from './components/StatusMessage'
 import LogoutButton from './components/LogoutButton'
+import Navigationbar from './components/Navigationbar'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -14,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './reducers/loginUserReducer'
 
 import {
-  Routes, Route, Link, useMatch
+  Routes, Route, useMatch
 } from 'react-router-dom'
 
 const App = () => {
@@ -46,18 +47,8 @@ const App = () => {
 
   return (
     <div className='container'>
-      <div>
-        <Link to='/'>home</Link>
-        <Link to='/matches'>matches</Link>
-        <Link to='/players'>players</Link>
-        {loginUser === null
-          ? <Link to='/login'>login</Link>
-          : <>
-              <Link to='/admin'>admin</Link>
-              <Link to='/logout'>logout</Link>
-            </>}
-      </div>
-
+      
+      <Navigationbar />
       <StatusMessage />
 
       {console.log(player)}
