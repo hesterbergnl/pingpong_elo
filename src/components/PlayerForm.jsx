@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { createPlayer } from '../reducers/playerReducer'
 
+import { Form, Button } from 'react-bootstrap'
+
 const PlayerForm = () => {
   const dispatch = useDispatch()
   const user = useSelector(store => store.loginUser)
@@ -37,18 +39,22 @@ const PlayerForm = () => {
   }
   else {
     return (
-      <form onSubmit={addPlayer}>
-        <table>
-         <thead>
-          <tr>
-              <td>Name</td>
-              <td><input name='name'/></td>
-              <td><input type='file' name='photo'/></td>
-              <td><button type='submit'> Add </button></td>
-            </tr>
-         </thead>
-        </table>
-      </form>
+      <Form onSubmit={addPlayer}>
+        <Form.Group>
+          <Form.Label>Name</Form.Label>
+          <Form.Control name='name' type='text' />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Photo</Form.Label>
+          <Form.Control type="file" name='photo' />
+        </Form.Group>
+        <Form.Group>
+          <Button variant='primary' type='submit'>
+            Submit
+          </Button>
+        </Form.Group>
+       </Form>
+       
     )
   }
 }
