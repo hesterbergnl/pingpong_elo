@@ -11,6 +11,11 @@ const MatchForm = (props) => {
   const dispatch = useDispatch()
   const state_players = useSelector(state => state.players)
 
+  const dropDownStyle = {
+    'height': '300px',
+    'overflow-y': 'scroll'
+  }
+
   const addMatch = async (event) => {
     try {
       event.preventDefault()

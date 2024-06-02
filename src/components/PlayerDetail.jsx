@@ -4,13 +4,9 @@ import { get_player_elos_from_matches, compareDates } from '../util/helpers'
 
 import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
+import {Row, Col } from 'react-bootstrap'
 
 const baseUrl = 'http://localhost:3001'
-
-const graphStyle = {
-  width: '800px',
-  height: '400px'
-}
 
 const imgStyle = {
   width: '300px',
@@ -40,19 +36,30 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
 
   return (
     <>
-      <h1>{selectedPlayer.name}</h1>
-      <h2>Rank: {rank} of {playerCount}</h2>
-      <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
-      <h2>Match Count: {playerElos.length - 1}</h2>
-      <img style={imgStyle} src={`${baseUrl}/${selectedPlayer.photo}`} alt='player photo' />
-
-      <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>
-
-      <h1>Elo History</h1>
-      <div style={graphStyle}>
+    <Row>
+      <Col md={6}>
+        <h1>{selectedPlayer.name}</h1>
+        <img style={imgStyle} src={`${baseUrl}/${selectedPlayer.photo}`} alt='player photo' />
+      </Col>
+      <Col md={6}>
+        <h2>Rank: {rank} of {playerCount}</h2>
+        <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
+        <h2>Match Count: {playerElos.length - 1}</h2>
+      </Col>
+    </Row>
+    <Row>
+        <h1>Elo History</h1>
         <Graph playerElos={playerElos.reverse()} />
-      </div>
-      <Link to='/'>Back</Link>
+    </Row>
+    <Row>
+      <Col>
+        <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>
+      </Col>
+    </Row>
+
+     
+
+      
     </>
   )
 }

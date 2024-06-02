@@ -13,6 +13,7 @@ import { initializePlayers } from './reducers/playerReducer'
 import { initializeMatches } from './reducers/matchReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './reducers/loginUserReducer'
+import { Container } from 'react-bootstrap'
 
 import {
   Routes, Route, useMatch
@@ -46,7 +47,7 @@ const App = () => {
     : null
 
   return (
-    <div className='container'>
+    <Container>
       
       <Navigationbar />
       <StatusMessage />
@@ -62,7 +63,7 @@ const App = () => {
         <Route path='/admin' element={<Admin  user={loginUser}/>}/>
         <Route path='/logout' element={<LogoutButton/>}/>
       </Routes>
-    </div>
+    </Container>
   )
 }
 
