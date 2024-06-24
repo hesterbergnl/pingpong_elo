@@ -39,22 +39,25 @@ const PlayerForm = () => {
   }
   else {
     return (
-      <Form onSubmit={addPlayer}>
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <Form.Control name='name' type='text' />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Photo</Form.Label>
-          <Form.Control type="file" name='photo' />
-        </Form.Group>
-        <Form.Group>
-          <Button variant='primary' type='submit'>
-            Submit
-          </Button>
-        </Form.Group>
-       </Form>
-       
+      <>
+        <h3>Add New Player</h3>
+
+        <Form onSubmit={addPlayer}>
+          <Form.Group>
+            <Form.Label>Name</Form.Label>
+            <Form.Control name='name' type='text' />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Photo</Form.Label>
+            <Form.Control type="file" name='photo' />
+          </Form.Group>
+          <Form.Group>
+            <Button variant='primary' type='submit'>
+              Submit
+            </Button>
+          </Form.Group>
+        </Form>
+      </>
     )
   }
 }
