@@ -83,7 +83,7 @@ const MatchForm = (props) => {
   
   return (
     <>
-      <h3>Enter new match</h3>
+      <h3>Enter New Match</h3>
       <Form onSubmit={addMatch}>
         <Form.Group className = 'mb-3' controlId='formBasicPlayer1'>
           <Form.Label>Player 1</Form.Label>

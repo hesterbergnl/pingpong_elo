@@ -19,7 +19,7 @@ const Navigationbar = () => {
             : <>
                 <Nav.Link href='#' as={Link} to='/admin'>admin</Nav.Link>
                 <Nav.Link href='#' as={Link} to='/logout'>logout</Nav.Link>
-                </>}
+              </>}
         </Nav>
         </Navbar.Collapse>
     </Container>

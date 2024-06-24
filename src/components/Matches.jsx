@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const Matches = ({user, selectedPlayer, qty}) => {
   const dispatch = useDispatch()
   var matches = useSelector(state => state.matches)
-
+  var headerText = 'All Matches'
   var config = null
 
   if(user !== null) {
@@ -29,11 +29,12 @@ const Matches = ({user, selectedPlayer, qty}) => {
 
   if(qty > 0) {
     matches = matches.slice(0, qty)
+    headerText = `Most Recent ${qty} Matches`
   }
 
   return (
     <>
-      <h3>Matches</h3>
+      <h3>{headerText}</h3>
       
       <div>
         <Table striped bordered hover>

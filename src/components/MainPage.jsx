@@ -15,18 +15,18 @@ const MainPage = ({selectedPlayer}) => {
   return (
     <>
       <Row>
-        <Col lg={6}>
+        <Col lg={6} style={{'padding-top':'25px'}}>
           <Header />
         </Col>
-        <Col lg={6}>
+        <Col lg={6} style={{'padding-top':'25px'}}>
           <MatchForm />
         </Col>
       </Row>
       <Row>
-        <Col lg={6}>
+        <Col lg={6} style={{'padding-top':'25px'}}>
           <Players user={null} qty={5}/>
         </Col>
-        <Col lg={6}>
+        <Col lg={6} style={{'padding-top':'25px'}}>
           <Matches selectedPlayer={selectedPlayer} user={null} qty={5}/>
         </Col>
       </Row>

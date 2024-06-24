@@ -10,6 +10,7 @@ const Players = ({ user, qty }) => {
   var players = useSelector(state => state.players)
   const matches = useSelector(state => state.matches)
   console.log(players)
+  var headerText = `All Players`
 
   var config = null
 
@@ -21,6 +22,7 @@ const Players = ({ user, qty }) => {
 
   if(qty > 0) {
     players = players.slice(0, qty)
+    headerText = `Top ${qty} Players`
   } 
 
   const delFunc = (id) => {
@@ -35,7 +37,7 @@ const Players = ({ user, qty }) => {
 
   return (
     <>
-      <h3>Players</h3>
+      <h3>{headerText}</h3>
 
       <div>
         <Table striped bordered hover>
