@@ -6,10 +6,10 @@ import PlayerForm from './PlayerForm'
 const Admin = ({ user }) => {
   return (
     <>
-      <Matches user={user} selectedPlayer={null} qty={-1}/>
+      <RecalcEloButton/>
       <PlayerForm />
       <Players user={user} qty={-1}/>
-      <RecalcEloButton/>
+      <Matches user={user} selectedPlayer={null} qty={-1}/>
     </>
   )
 }
