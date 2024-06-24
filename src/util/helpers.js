@@ -75,3 +75,21 @@ export const setStatusMessageState = (message, error) => {
     store.dispatch(clearStatusMessage()) 
   }, 2500)
 }
+
+export const validateMatchInfo = (p1, p2, s1, s2) => {
+  if (p1 === p2) {
+    setStatusMessageState('player 1 and player 2 must be unique', true)
+    return false
+  }
+  if (s1 < 11 && s2 < 11) {
+    setStatusMessageState('invalid score', true)
+    return false
+  }
+  else if (Math.abs(s2 - s1) <= 2) {
+    setStatusMessageState('invalid score', true)
+    return false
+  }
+  else {
+    return true
+  }
+}

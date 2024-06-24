@@ -1,4 +1,4 @@
-import { calc_elo, setStatusMessageState } from '../util/helpers'
+import { calc_elo, setStatusMessageState, validateMatchInfo } from '../util/helpers'
 
 import OptionSelect from './OptionSelect'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,9 +19,14 @@ const MatchForm = (props) => {
   const addMatch = async (event) => {
     try {
       event.preventDefault()
-
       let p1 = event.target.player1.value
       let p2 = event.target.player2.value
+      let p1score = parseInt(event.target.p1score.value)
+      let p2score = parseInt(event.target.p2score.value)
+
+      if(!validateMatchInfo(p1, p2, p1score, p2score)) {
+        return
+      }
 
       console.log(`p1: ${p1}`)
       console.log(`p2: ${p2}`)
@@ -40,8 +45,6 @@ const MatchForm = (props) => {
         return
       }
       
-      let p1score = parseInt(event.target.p1score.value)
-      let p2score = parseInt(event.target.p2score.value)
       let matchDate = Date()
 
       console.log(JSON.stringify(state_players))
