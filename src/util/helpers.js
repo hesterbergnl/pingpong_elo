@@ -85,7 +85,7 @@ export const validateMatchInfo = (p1, p2, s1, s2) => {
     setStatusMessageState('invalid score', true)
     return false
   }
-  else if (Math.abs(s2 - s1) <= 2) {
+  else if (Math.abs(s2 - s1) < 2) {
     setStatusMessageState('invalid score', true)
     return false
   }
