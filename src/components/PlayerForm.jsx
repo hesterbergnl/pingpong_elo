@@ -24,6 +24,7 @@ const PlayerForm = () => {
     }
 
     event.target.name.value = ''
+    event.target.photo.value = ''
   
     let newPlayer = {
       photo: photo,
