@@ -2,13 +2,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deletePlayer } from '../reducers/playerReducer'
 import { deleteMatch } from '../reducers/matchReducer'
 import Player from './Player'
+import { getCurrentPlayerElos, get_player_elos_from_matches } from '../util/helpers'
 import { Table } from 'react-bootstrap'
 
 const Players = ({ user, qty }) => {
   const dispatch = useDispatch()
 
-  var players = useSelector(state => state.players)
   const matches = useSelector(state => state.matches)
+  var players = getCurrentPlayerElos() //useSelector(state => state.players)
+
   console.log(players)
   var headerText = `All Players`
 

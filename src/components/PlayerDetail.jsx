@@ -26,6 +26,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
   }
 
   const elos = get_player_elos_from_matches()
+  console.log(`elos: ${JSON.stringify(elos)}`)
 
   var playerElos = elos.filter(elo => elo.p.id === selectedPlayer.id)
   const initialElo = {

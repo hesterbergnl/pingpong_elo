@@ -35,12 +35,15 @@ const  elo_update= (rating, actual, probability) => {
 
 export const get_player_elos_from_matches = () => {
   var matches = useSelector(state => state.matches)
+  console.log(`matches: ${matches}`)
 
   const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
 
   const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
 
   const elo_array = p1_elos.concat(p2_elos).sort(compareDatesRev)
+
+  console.log(`elo array: ${elo_array}`)
 
   return elo_array
 }
@@ -92,4 +95,26 @@ export const validateMatchInfo = (p1, p2, s1, s2) => {
   else {
     return true
   }
+}
+
+export const getCurrentPlayerElos = () => {
+  const players = useSelector(state => state.players)
+  const matches = useSelector(state => state.matches)
+
+  console.log(`matches: ${JSON.stringify(matches)}`)
+  console.log(`players: ${JSON.stringify(players)}`)
+
+  if(players.length != 0) {
+    const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
+
+    const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
+
+    const eloArray = p1_elos.concat(p2_elos).sort(compareDatesRev)
+
+    console.log(`elos: ${JSON.stringify(eloArray)}`)
+
+    return players.map((player) => (player.elo = eloArray.find((elo) => elo.p.id === player.id)))
+  }
+  
+  return []
 }
