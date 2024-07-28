@@ -48,23 +48,30 @@ export const get_player_elos_from_matches = () => {
   return elo_array
 }
 
+const elo_update_weighted = (elo, max_score, min_score, actual, probability) => {
+  const k = 60
+  const scale_factor = 1 - (min_score / max_score)
+  console.log(`elo ${elo}, max_score ${max_score}, min_score ${min_score}, actual ${actual}, probability ${probability}`)
+
+  return elo + (k * (scale_factor * (actual - probability)))
+}
+
 export const calc_elo = (p1elo, p2elo, p1s, p2s) => {
   let actual_p1 = p1s > p2s ? 1.0 : 0.0
   let actual_p2 = Math.abs(1 - actual_p1)
-  console.log(`P1 score: ${p1s}`)
-  console.log(`P2 score: ${p2s}`)
-  console.log(`P1 win? ${actual_p1}`)
-  console.log(`P2 win? ${actual_p2}`)
+  const max_score = Math.max(p1s, p2s)
+  const min_score = Math.min(p1s, p2s)
 
+  console.log(max_score, min_score)
 
   let prob = probability_of_win(p1elo, p2elo)
-  console.log(`Probability of P1 to win: ${prob}`)
-  let p1_new_elo = elo_update(p1elo, actual_p1, prob)
-  console.log(`P1 initial elo: ${p1elo}`)
-  console.log(`P1 updated elo: ${p1_new_elo}`)
-  let p2_new_elo = elo_update(p2elo, actual_p2, 1.0 - prob)
-  console.log(`P2 initial elo: ${p2elo}`)
-  console.log(`P2 updated elo: ${p2_new_elo}`)
+  const p1_new_elo = elo_update_weighted(p1elo, max_score, min_score, actual_p1, prob)
+  const p2_new_elo = elo_update_weighted(p2elo, max_score, min_score, actual_p2, 1.0 - prob)
+  
+  /*   
+  p1_new_elo = elo_update(p1elo, actual_p1, prob)
+  p2_new_elo = elo_update(p2elo, actual_p2, 1.0 - prob) 
+  */
   
   return {
     p1_updated_elo: p1_new_elo,
