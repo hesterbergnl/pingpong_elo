@@ -1,6 +1,6 @@
 import Matches from './Matches'
 import Graph from './Graph'
-import { get_player_elos_from_matches, compareDates } from '../util/helpers'
+import { get_player_elos_from_matches, compareDates, getCurrentPlayerElos } from '../util/helpers'
 
 import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ const imgStyle = {
 }
 
 const PlayerDetail = ({ user, selectedPlayer }) => {
-  const players = useSelector(state => state.players)
+  const players = getCurrentPlayerElos() //useSelector(state => state.players)
   const rank = players.findIndex(player => player.id === selectedPlayer.id) + 1
   const playerCount = players.length
 

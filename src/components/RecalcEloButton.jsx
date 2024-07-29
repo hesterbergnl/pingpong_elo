@@ -5,8 +5,6 @@ import { updatePlayer } from '../reducers/playerReducer'
 import { updateMatch } from '../reducers/matchReducer'
 
 export const recalcElo = (dispatch, matches, players) => {
-  setStatusMessageState(`recalc in progress... please be patient`, false)
-
   for (const player of players) {
     players = players.map(p => p.id === player.id ? {...p, elo:1200 } : p)
   }
@@ -31,18 +29,9 @@ export const recalcElo = (dispatch, matches, players) => {
     console.log(newMatchObj)
 
     dispatch(updateMatch(id, newMatchObj))
-
-    players = players.map(p => p.id === p1.id ? {...p, elo:updated_elo.p1_updated_elo } : p)
-    players = players.map(p => p.id === p2.id ? {...p, elo:updated_elo.p2_updated_elo } : p)
   }
 
-  console.log(players)
-
-  for (const player of players) {
-    dispatch(updatePlayer(player.id, player))
-  }
-
-  setStatusMessageState(`recalc completed!`, false)
+  setStatusMessageState(`recalc in progress... please be patient`, false)
 }
 
 const RecalcEloButton = () => {

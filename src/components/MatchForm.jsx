@@ -1,4 +1,4 @@
-import { calc_elo, setStatusMessageState, validateMatchInfo } from '../util/helpers'
+import { calc_elo, setStatusMessageState, validateMatchInfo, getCurrentPlayerElos } from '../util/helpers'
 
 import OptionSelect from './OptionSelect'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import { Form, Button } from 'react-bootstrap'
 const MatchForm = (props) => {
   const dispatch = useDispatch()
   const state_players = useSelector(state => state.players)
+  const elos = getCurrentPlayerElos()
 
   const dropDownStyle = {
     'height': '300px',
@@ -23,6 +24,8 @@ const MatchForm = (props) => {
       let p2 = event.target.player2.value
       let p1score = parseInt(event.target.p1score.value)
       let p2score = parseInt(event.target.p2score.value)
+      let p1elo = 1200
+      let p2elo = 1200
 
       if(!validateMatchInfo(p1, p2, p1score, p2score)) {
         return
@@ -32,17 +35,26 @@ const MatchForm = (props) => {
       console.log(`p2: ${p2}`)
 
       let p1obj = state_players.find((player) => player.name === p1)
+      let p1EloObj = elos.find((elo) => elo.name === p1)
 
       if (typeof p1obj === undefined) {
         console.log('p1 not found')
         return
       }
 
+      if (typeof p1EloObj !== undefined) {
+        p1elo = p1EloObj.elo
+      }
+
       let p2obj = state_players.find((player) => player.name === p2)
+      let p2EloObj = elos.find((elo) => elo.name === p2)
 
       if (typeof p2obj === undefined) {
         console.log('p2 not found')
         return
+      }
+      if (typeof p2EloObj !== undefined) {
+        p2elo = p2EloObj.elo
       }
       
       let matchDate = Date()
@@ -50,7 +62,7 @@ const MatchForm = (props) => {
       console.log(JSON.stringify(state_players))
       console.log(`p1 obj: ${p1obj}, p2 obj: ${p2obj}`)
 
-      let updated_elo = calc_elo(p1obj.elo, p2obj.elo, p1score, p2score)
+      let updated_elo = calc_elo(p1elo, p2elo, p1score, p2score)
 
       let newMatchObj = {
         date: matchDate,
@@ -67,7 +79,7 @@ const MatchForm = (props) => {
       event.target.p1score.value = ''
       event.target.p2score.value = ''
 
-      const p1UpdateObject = {
+      /* const p1UpdateObject = {
         name: p1obj.name,
         elo: updated_elo.p1_updated_elo
       }
@@ -77,8 +89,9 @@ const MatchForm = (props) => {
         elo: updated_elo.p2_updated_elo
       }
 
-    dispatch(updatePlayer(p1obj.id, p1UpdateObject))
-    dispatch(updatePlayer(p2obj.id, p2UpdateObject))
+      dispatch(updatePlayer(p1obj.id, p1UpdateObject))
+      dispatch(updatePlayer(p2obj.id, p2UpdateObject)) */
+
     } catch (error) {
       setStatusMessageState(error.message , true)
     }
