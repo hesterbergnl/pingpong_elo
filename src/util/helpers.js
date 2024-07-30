@@ -117,9 +117,30 @@ export const getCurrentPlayerElos = () => {
     const p2_elos = matches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
 
     const eloArray = p1_elos.concat(p2_elos).sort(compareDatesRev)
-    
+
     const uniqueArray = eloArray.filter((item, index, self) =>
       index === self.findIndex((t) => t.p.name === item.p.name)
+    )
+
+    const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['elo']:player.elo})).sort(compareElo)
+    console.log(`playerEloArray: ${JSON.stringify(playerEloArray)}`)
+
+    return playerEloArray
+  }
+  
+  return []
+}
+
+export const getPlayerElosFromArray = (tempMatches, players) => {
+  if(players.length != 0) {
+    const p1_elos = tempMatches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
+
+    const p2_elos = tempMatches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
+
+    const eloArray = p1_elos.concat(p2_elos).sort(compareDatesRev)
+
+    const uniqueArray = eloArray.filter((item, index, self) =>
+      index === self.findIndex((t) => t.p === item.p)
     )
 
     const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['elo']:player.elo})).sort(compareElo)

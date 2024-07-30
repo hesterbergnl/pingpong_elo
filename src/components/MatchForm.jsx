@@ -37,23 +37,23 @@ const MatchForm = (props) => {
       let p1obj = state_players.find((player) => player.name === p1)
       let p1EloObj = elos.find((elo) => elo.name === p1)
 
-      if (typeof p1obj === undefined) {
+      if (typeof p1obj === 'undefined') {
         console.log('p1 not found')
         return
       }
 
-      if (typeof p1EloObj !== undefined) {
+      if (typeof p1EloObj !== 'undefined') {
         p1elo = p1EloObj.elo
       }
 
       let p2obj = state_players.find((player) => player.name === p2)
       let p2EloObj = elos.find((elo) => elo.name === p2)
 
-      if (typeof p2obj === undefined) {
+      if (typeof p2obj === 'undefined') {
         console.log('p2 not found')
         return
       }
-      if (typeof p2EloObj !== undefined) {
+      if (typeof p2EloObj !== 'undefined') {
         p2elo = p2EloObj.elo
       }
       
