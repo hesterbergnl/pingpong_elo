@@ -23,8 +23,9 @@ In the backend folder, create a .env file to store secrets. Include the followin
     PORT=####
     MONGODB_URL="mongodbconnectionstring"
     SECRET="A secret string"
+    DEFAULT_IMG="defaultimagefile.jpeg"
 
-In the above .env file, PORT is the port number to run the repository. MONGODB_URL is the mongodb connection string (can be found in mongodb atlas or mongodb compass for desktop). SECRET is a secret string that is used for json web token authentication.
+In the above .env file, PORT is the port number to run the repository. MONGODB_URL is the mongodb connection string (can be found in mongodb atlas or mongodb compass for desktop). SECRET is a secret string that is used for json web token authentication. DEFAULT_IMG is an image file name (jpeg or png) placed in the uploads/ folder that will act as default profile image if one is not uploaded. 
 
 To run the project in dev mode, enter the following command in the root directory of both the frontend folder and backend folders.
 
