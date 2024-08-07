@@ -47,7 +47,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
       <Col md={6}>
         <h2>Rank: {rank} of {playerCount}</h2>
         <h2>Elo: {Math.round(selectedPlayer.elo)}</h2>
-        <h2>Match Count: {playerElos.length - 1}</h2>
+        <h2>Match Count: {playerEloHistory.length - 1}</h2>
       </Col>
     </Row>
     <Row>
