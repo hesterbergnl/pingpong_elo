@@ -2,16 +2,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deletePlayer } from '../reducers/playerReducer'
 import { deleteMatch } from '../reducers/matchReducer'
 import Player from './Player'
-import { getCurrentPlayerElos, get_player_elos_from_matches } from '../util/helpers'
+import { getPlayerElos, getPlayerElosFromMatches } from '../util/helpers'
 import { Table } from 'react-bootstrap'
 
 const Players = ({ user, qty }) => {
   const dispatch = useDispatch()
 
   const matches = useSelector(state => state.matches)
-  var players = getCurrentPlayerElos() //useSelector(state => state.players)
+  const players = useSelector(state => state.players)
+  var playerElos = getPlayerElos(matches, players) 
 
-  console.log(players)
+  //console.log(playerElos)
   var headerText = `All Players`
 
   var config = null
@@ -23,7 +24,7 @@ const Players = ({ user, qty }) => {
   }
 
   if(qty > 0) {
-    players = players.slice(0, qty)
+    playerElos = playerElos.slice(0, qty)
     headerText = `Top ${qty} Players`
   } 
 
@@ -48,7 +49,7 @@ const Players = ({ user, qty }) => {
               <th>Name</th>
               <th>Elo</th>
             </tr>
-              {players.map(player => 
+              {playerElos.map(player => 
                 <Player key={player.id} user={user} id={player.id} n={player.name} elo={player.elo} delFunc={() => delFunc(player.id)} />
               )}
           </thead>

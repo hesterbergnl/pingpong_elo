@@ -2,6 +2,15 @@ import { useSelector } from 'react-redux'
 import { setStatusMessage, clearStatusMessage } from '../reducers/statusMessageReducer'
 import store from '../store'
 
+export const compareName = (a, b) => {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
 
 export const compareElo = (a, b) => {
   return b.elo - a.elo
@@ -33,9 +42,9 @@ const  elo_update= (rating, actual, probability) => {
   return rating + (k * (actual - probability))
 }
 
-export const get_player_elos_from_matches = () => {
+export const getPlayerElosFromMatches = () => {
   var matches = useSelector(state => state.matches)
-  console.log(`matches: ${matches}`)
+  //console.log(`matches: ${matches}`)
 
   const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
 
@@ -43,7 +52,7 @@ export const get_player_elos_from_matches = () => {
 
   const elo_array = p1_elos.concat(p2_elos).sort(compareDatesRev)
 
-  console.log(`elo array: ${elo_array}`)
+  //console.log(`elo array: ${elo_array}`)
 
   return elo_array
 }
@@ -104,13 +113,7 @@ export const validateMatchInfo = (p1, p2, s1, s2) => {
   }
 }
 
-export const getCurrentPlayerElos = () => {
-  const players = useSelector(state => state.players)
-  const matches = useSelector(state => state.matches)
-
-  console.log(`matches: ${JSON.stringify(matches)}`)
-  console.log(`players: ${JSON.stringify(players)}`)
-
+export const getPlayerElos = (matches, players) => {
   if(players.length != 0) {
     const p1_elos = matches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
 
@@ -123,28 +126,7 @@ export const getCurrentPlayerElos = () => {
     )
 
     const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['elo']:player.elo})).sort(compareElo)
-    console.log(`playerEloArray: ${JSON.stringify(playerEloArray)}`)
-
-    return playerEloArray
-  }
-  
-  return []
-}
-
-export const getPlayerElosFromArray = (tempMatches, players) => {
-  if(players.length != 0) {
-    const p1_elos = tempMatches.map(match => ({['date']:match.date, ['p']:match.p1, ['elo']:match.elo1, ['match_id']:match.id}))
-
-    const p2_elos = tempMatches.map(match => ({['date']:match.date, ['p']:match.p2, ['elo']:match.elo2, ['match_id']:match.id}))
-
-    const eloArray = p1_elos.concat(p2_elos).sort(compareDatesRev)
-
-    const uniqueArray = eloArray.filter((item, index, self) =>
-      index === self.findIndex((t) => t.p === item.p)
-    )
-
-    const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['elo']:player.elo})).sort(compareElo)
-    console.log(`playerEloArray: ${JSON.stringify(playerEloArray)}`)
+    //console.log(`playerEloArray: ${JSON.stringify(playerEloArray)}`)
 
     return playerEloArray
   }

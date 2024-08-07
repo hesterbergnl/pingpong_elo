@@ -1,21 +1,16 @@
-import { calc_elo, setStatusMessageState, validateMatchInfo, getCurrentPlayerElos } from '../util/helpers'
+import { calc_elo, setStatusMessageState, validateMatchInfo, getPlayerElos } from '../util/helpers'
 
 import OptionSelect from './OptionSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { createMatch } from '../reducers/matchReducer'
-import { updatePlayer } from '../reducers/playerReducer'
 
 import { Form, Button } from 'react-bootstrap'
 
 const MatchForm = (props) => {
   const dispatch = useDispatch()
   const state_players = useSelector(state => state.players)
-  const elos = getCurrentPlayerElos()
-
-  const dropDownStyle = {
-    'height': '300px',
-    'overflow-y': 'scroll'
-  }
+  const state_matches = useSelector(state => state.matches)
+  const elos = getPlayerElos(state_matches, state_players)
 
   const addMatch = async (event) => {
     try {

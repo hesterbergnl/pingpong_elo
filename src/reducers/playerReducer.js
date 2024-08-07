@@ -1,17 +1,17 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
 import playerService from '../services/player'
-import { compareElo, setStatusMessageState } from '../util/helpers'
+import { compareName, setStatusMessageState } from '../util/helpers'
 
 const playerSlice = createSlice({
   name: 'players',
   initialState: [],
   reducers: {
     appendPlayer(state, action) {
-      return state.concat(action.payload).sort(compareElo)
+      return state.concat(action.payload).sort(compareName)
     },
     setPlayers(state, action) {
-      return action.payload.sort(compareElo)
+      return action.payload.sort(compareName)
     },
     replacePlayer(state, action) {
       // For troubleshooting, use current(state)
@@ -21,7 +21,7 @@ const playerSlice = createSlice({
         (player.id === id 
           ? { ...player, elo } 
           : player)
-        ).sort(compareElo);
+        ).sort(compareName);
     },
     removePlayer(state, action) {
       const id = action.payload

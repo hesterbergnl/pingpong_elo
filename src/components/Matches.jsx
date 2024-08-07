@@ -11,15 +11,15 @@ const Matches = ({user, selectedPlayer, qty}) => {
   var config = null
 
   if(user !== null) {
-    console.log('user !== null, user object:', user)
+    //console.log('user !== null, user object:', user)
     config = {
       headers: { Authorization: `Bearer ${user.token}` },
     }
   }
 
-  console.log(config)
+  //console.log(config)
 
-  console.log('Selected player: ', selectedPlayer)
+  //console.log('Selected player: ', selectedPlayer)
 
   if(selectedPlayer !== null) {
     matches = matches.filter(match => {
@@ -48,7 +48,6 @@ const Matches = ({user, selectedPlayer, qty}) => {
             <th>ELO1</th>
             <th>ELO2</th>
           </tr>
-          {console.log(matches)}
           {matches.map(match =>
             <Match key={match.id} user={user} date={match.date} p1={match.p1.name} p2={match.p2.name} s1={match.s1} s2={match.s2} elo1={match.elo1} elo2={match.elo2} delFunc={() => dispatch(deleteMatch(match.id, config))}/>
           )}

@@ -55,7 +55,7 @@ export const createMatch = (match) => {
 export const updateMatch = (id, match) => {
   return async dispatch => {
     try {
-      console.log("async api call: ", id, match)
+      //console.log("async api call: ", id, match)
       const updatedMatch = await matchService.update(id, match)
       dispatch(replaceMatch(updatedMatch))
     } catch (error) {

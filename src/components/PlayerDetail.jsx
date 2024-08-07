@@ -1,6 +1,6 @@
 import Matches from './Matches'
 import Graph from './Graph'
-import { get_player_elos_from_matches, compareDates, getCurrentPlayerElos } from '../util/helpers'
+import { getPlayerElosFromMatches, compareDates, getPlayerElos } from '../util/helpers'
 
 import { useSelector } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
@@ -13,9 +13,11 @@ const imgStyle = {
 }
 
 const PlayerDetail = ({ user, selectedPlayer }) => {
-  const players = getCurrentPlayerElos() //useSelector(state => state.players)
-  const rank = players.findIndex(player => player.id === selectedPlayer.id) + 1
-  const playerCount = players.length
+  const players = useSelector(state => state.players)
+  const matches = useSelector(state => state.matches)
+  const playerElos = getPlayerElos(matches, players)
+  const rank = playerElos.findIndex(player => player.id === selectedPlayer.id) + 1
+  const playerCount = playerElos.length
 
   console.log(selectedPlayer)
 
@@ -25,15 +27,15 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
     )
   }
 
-  const elos = get_player_elos_from_matches()
+  const elos = getPlayerElosFromMatches()
   console.log(`elos: ${JSON.stringify(elos)}`)
 
-  var playerElos = elos.filter(elo => elo.p.id === selectedPlayer.id)
+  var playerEloHistory = elos.filter(elo => elo.p.id === selectedPlayer.id)
   const initialElo = {
     p: selectedPlayer,
     elo: 1200
   }
-  playerElos = playerElos.concat(initialElo)
+  playerEloHistory = playerEloHistory.concat(initialElo)
 
   return (
     <>
@@ -50,7 +52,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
     </Row>
     <Row>
         <h1>Elo History</h1>
-        <Graph playerElos={playerElos.reverse()} />
+        <Graph playerElos={playerEloHistory.reverse()} />
     </Row>
     <Row>
       <Col>
