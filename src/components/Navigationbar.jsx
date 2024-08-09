@@ -14,6 +14,7 @@ const Navigationbar = () => {
         <Nav className="me-auto">
             <Nav.Link href="#" as={Link} to='/matches'>matches</Nav.Link>
             <Nav.Link href="#" as={Link} to='/players'>players</Nav.Link>
+            <Nav.Link href="#" as={Link} to='/statistics'>statistics</Nav.Link>
             {loginUser === null
             ? <Nav.Link href='#' as={Link} to='/login'>login</Nav.Link>
             : <>

@@ -1,6 +1,6 @@
 import {AgChartsReact} from 'ag-charts-react'
 
-const Graph = ({playerElos}) => {
+const EloHistoryGraph = ({playerElos}) => {
   const chartOptions = {
     data: playerElos.map((e, i) => ({
       i: i,
@@ -14,4 +14,4 @@ const Graph = ({playerElos}) => {
   )
 }
 
-export default Graph
+export default EloHistoryGraph

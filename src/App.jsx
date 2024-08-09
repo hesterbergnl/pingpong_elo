@@ -7,6 +7,7 @@ import Admin from './components/Admin'
 import StatusMessage from './components/StatusMessage'
 import LogoutButton from './components/LogoutButton'
 import Navigationbar from './components/Navigationbar'
+import Statistics from './components/Statistics'
 
 import { useEffect } from 'react'
 import { initializePlayers } from './reducers/playerReducer'
@@ -59,6 +60,7 @@ const App = () => {
         <Route path='/matches' element={<Matches selectedPlayer={player} user={null} qty={-1}/>}/>
         <Route path='/players' element={<Players user={null} qty={-1}/>}/>
         <Route path='/players/:id' element={<PlayerDetail user={null} selectedPlayer={player}/>}/>
+        <Route path='/statistics' element={<Statistics />}/>
         <Route path='/login' element={<LoginForm/>}/>
         <Route path='/admin' element={<Admin  user={loginUser}/>}/>
         <Route path='/logout' element={<LogoutButton/>}/>

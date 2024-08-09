@@ -1,9 +1,9 @@
 import Matches from './Matches'
-import Graph from './Graph'
-import { getPlayerElosFromMatches, compareDates, getPlayerElos } from '../util/helpers'
+import EloHistoryGraph from './EloHistoryGraph'
+import { getPlayerElosFromMatches, getPlayerElos } from '../util/helpers'
 
 import { useSelector } from 'react-redux'
-import { Link, Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import {Row, Col } from 'react-bootstrap'
 
 const baseUrl = 'http://localhost:3001'
@@ -52,7 +52,7 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
     </Row>
     <Row>
         <h1>Elo History</h1>
-        <Graph playerElos={playerEloHistory.reverse()} />
+        <EloHistoryGraph playerElos={playerEloHistory.reverse()} />
     </Row>
     <Row>
       <Col>
