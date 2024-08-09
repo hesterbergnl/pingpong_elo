@@ -51,7 +51,6 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
       </Col>
     </Row>
     <Row>
-        <h1>Elo History</h1>
         <EloHistoryGraph playerElos={playerEloHistory.reverse()} />
     </Row>
     <Row>
@@ -59,10 +58,6 @@ const PlayerDetail = ({ user, selectedPlayer }) => {
         <Matches user={user} selectedPlayer={selectedPlayer} qty={-1}/>
       </Col>
     </Row>
-
-     
-
-      
     </>
   )
 }

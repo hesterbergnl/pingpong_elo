@@ -6,7 +6,6 @@ const PlaytimeGraph = (playTimes) => {
 
   const chartOptions = {
     title: { text: 'Hour of Play' },
-    subtitle: { text: '"Only at lunch"' },
     data: playTimes.playTimes.map((e) => ({
       i: e.hour,
       e: e.count, 

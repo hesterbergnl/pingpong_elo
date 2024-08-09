@@ -2,6 +2,7 @@ import {AgChartsReact} from 'ag-charts-react'
 
 const EloHistoryGraph = ({playerElos}) => {
   const chartOptions = {
+    title: { text: 'Elo History' },
     data: playerElos.map((e, i) => ({
       i: i,
       e: e.elo, 
