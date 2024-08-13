@@ -53,8 +53,6 @@ const App = () => {
       <Navigationbar />
       <StatusMessage />
 
-      {console.log(player)}
-
       <Routes>
         <Route path='/' element={<MainPage selectedPlayer={player}/>}/>
         <Route path='/matches' element={<Matches selectedPlayer={player} user={null} qty={-1}/>}/>

@@ -133,3 +133,37 @@ export const getPlayerElos = (matches, players) => {
   
   return []
 }
+
+export const scoreStats = (matches) => {
+  const matchQty = matches.length
+  var minTotal = 0
+  var maxTotal = 0
+  var highestScore = 11
+
+  if(matches.length < 1) {
+    return { minTotal, maxTotal, highestScore }
+  }
+
+  console.log(`matches:  ${JSON.stringify(matches)}`)
+
+  matches.forEach((match) => {    
+    console.log(`match: ${JSON.stringify(match)} ${match.s1}`)
+    if (typeof match.s1 !== 'undefined'){
+      if (match.s1 > match.s2) {
+        match.s1 > highestScore ? highestScore = match.s1 :
+        maxTotal += match.s1
+        minTotal += match.s2
+      }
+      else {
+        match.s2 > highestScore ? highestScore = match.s2 :
+        maxTotal += match.s2
+        minTotal += match.s1
+      }
+    }
+  })
+
+  const avgMax = maxTotal / matchQty
+  const avgMin = minTotal / matchQty
+
+  return { avgMin, avgMax, highestScore}
+}
