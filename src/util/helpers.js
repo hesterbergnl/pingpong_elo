@@ -125,7 +125,7 @@ export const getPlayerElos = (matches, players) => {
       index === self.findIndex((t) => t.p.name === item.p.name)
     )
 
-    const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['elo']:player.elo})).sort(compareElo)
+    const playerEloArray = uniqueArray.map((player) => ({['id']:player.p.id, ['name']:player.p.name, ['photo']:player.p.photo, ['elo']:player.elo})).sort(compareElo)
     //console.log(`playerEloArray: ${JSON.stringify(playerEloArray)}`)
 
     return playerEloArray

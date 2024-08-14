@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getPlayerElos } from '../util/helpers'
 
 const baseUrl = 'http://localhost:3001'
 
@@ -8,8 +9,11 @@ const imgStyle = {
 }
 
 const Header = () => {
-  const players = useSelector(state => state.players)
-  const topPlayer = players[0]
+  const state_players = useSelector(state => state.players)
+  const state_matches = useSelector(state => state.matches)
+  const elos = getPlayerElos(state_matches, state_players)
+
+  const topPlayer = elos[0]
 
   if (topPlayer !== undefined) {
     return (
