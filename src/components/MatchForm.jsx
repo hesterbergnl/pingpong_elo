@@ -4,7 +4,7 @@ import OptionSelect from './OptionSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { createMatch } from '../reducers/matchReducer'
 
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 
 const MatchForm = (props) => {
   const dispatch = useDispatch()
@@ -96,37 +96,51 @@ const MatchForm = (props) => {
     <>
       <h3>Enter New Match</h3>
       <Form onSubmit={addMatch}>
-        <Form.Group className = 'mb-3' controlId='formBasicPlayer1'>
-          <Form.Label>Player 1</Form.Label>
-          <Form.Select name='player1'>
-            <option>Player 1</option>
-            {state_players.map(player =>
-              <OptionSelect key={player.id} name={player.name} />
-            )}
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Player 2</Form.Label>
-          <Form.Select name='player2'>
-            <option>Player 2</option>
-            {state_players.map(player =>
-              <OptionSelect key={player.id} name={player.name} />
-            )}
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Score Player 1</Form.Label>
-          <Form.Control name='p1score' type='number' />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Score Player 2</Form.Label>
-          <Form.Control name='p2score' type='number' />
-        </Form.Group>
-        <Form.Group>
-          <Button variant='primary' type='submit'>
-            Submit
-          </Button>
-        </Form.Group>
+        <Row>
+          <Col lg={6} style={{'padding-top':'25px'}}>
+            <Form.Group className = 'mb-3' controlId='formBasicPlayer1'>
+              <Form.Label>Player 1</Form.Label>
+              <Form.Select name='player1'>
+                <option>Player 1</option>
+                {state_players.map(player =>
+                  <OptionSelect key={player.id} name={player.name} />
+                )}
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col lg={6} style={{'padding-top':'25px'}}>
+            <Form.Group>
+              <Form.Label>Score Player 1</Form.Label>
+              <Form.Control name='p1score' type='number' />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={6} style={{'padding-top':'25px'}}>
+            <Form.Group>
+              <Form.Label>Player 2</Form.Label>
+              <Form.Select name='player2'>
+                <option>Player 2</option>
+                {state_players.map(player =>
+                  <OptionSelect key={player.id} name={player.name} />
+                )}
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col lg={6} style={{'padding-top':'25px'}}>
+            <Form.Group>
+              <Form.Label>Score Player 2</Form.Label>
+              <Form.Control name='p2score' type='number' />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Form.Group>
+            <Button variant='primary' type='submit'>
+              Submit
+            </Button>
+          </Form.Group>
+        </Row>
       </Form>
     </>
   )
